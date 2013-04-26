@@ -9,7 +9,7 @@ user-{{ pillar['project_name'] }}:
 
 database-{{ pillar['project_name'] }}:
   postgres_database.present:
-    - name: {{ pillar['project_name'] }}
+    - name: {{ pillar['project_name'] }}_{{ pillar['environment'] }}
     - owner: {{ pillar['project_name'] }}
     - template: template0
     - encoding: UTF-8
