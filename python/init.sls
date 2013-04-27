@@ -12,9 +12,9 @@ python-headers:
     - installed
     - names:
       - libpq-dev
-      - libev
+#      - libev
       - libev-dev
-      - libevent
+#      - libevent
       - libevent-dev
       - libmemcached-dev
       - libjpeg62
