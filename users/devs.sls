@@ -1,7 +1,5 @@
-admin:
-    group.present:
-        - name: admin
-        - system: True
+include:
+    - users.groups
 
 {% if 'users' in pillar %}
 {% for user, args in pillar['users'].iteritems() %}
@@ -15,6 +13,7 @@ admin:
 {% endif %}
     require:
       - group: admin
+      - group: login
 
 {% if 'public_key' in args %}
     ssh_auth:

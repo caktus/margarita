@@ -1,8 +1,3 @@
-login:
-    group.present:
-        - name: login
-        - system: True
-
 openssh-client:
   pkg:
     - installed
