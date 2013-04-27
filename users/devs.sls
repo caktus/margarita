@@ -8,6 +8,7 @@ include:
         - name: {{ user }}
         - shell: /bin/bash
         - home: /home/{{ user }}
+        - remove_groups: False
 {% if 'groups' in args %}
         - groups: {{ args['groups'] }}
 {% endif %}
