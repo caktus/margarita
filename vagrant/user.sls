@@ -3,9 +3,9 @@
 # sudo, which Vagrant needs it to do.
 
 vagrant:
-    user.present:
-        - name: vagrant
-        - groups: [admin, login]
-        - require:
-            - group: admin
-            - group: login
+  user.present:
+    - name: vagrant
+    - groups: [admin, login]
+    - require:
+      - group: admin
+      - group: login
