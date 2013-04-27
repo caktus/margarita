@@ -28,6 +28,11 @@ python-headers:
       - libxml2-dev
       - libxslt1-dev
 
+virtualenv:
+  pip.installed:
+    - require:
+      - pkg: python-pkgs
+
 virtualenvwrapper:
   pip.installed:
     - require:

@@ -5,8 +5,8 @@
 vagrant:
   user.present:
     - name: vagrant
-    - groups: [admin, login]
     - remove_groups: False
+    - groups: [admin, login]
     - require:
       - group: admin
       - group: login
