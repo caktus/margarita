@@ -30,11 +30,13 @@ python-headers:
 
 virtualenv:
   pip.installed:
+    - upgrade: True
     - require:
       - pkg: python-pkgs
 
 virtualenvwrapper:
   pip.installed:
+    - upgrade: True
     - require:
       - pkg: python-pkgs
 
