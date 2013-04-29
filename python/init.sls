@@ -12,9 +12,7 @@ python-headers:
     - installed
     - names:
       - libpq-dev
-#      - libev
       - libev-dev
-#      - libevent
       - libevent-dev
       - libmemcached-dev
       - libjpeg62
@@ -34,11 +32,11 @@ virtualenv:
     - require:
       - pkg: python-pkgs
 
-virtualenvwrapper:
-  pip.installed:
-    - upgrade: True
-    - require:
-      - pkg: python-pkgs
+# virtualenvwrapper:
+#   pip.installed:
+#     - upgrade: True
+#     - require:
+#       - pkg: python-pkgs
 
 /usr/lib/libz.so:
   file.symlink:
