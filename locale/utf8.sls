@@ -3,13 +3,13 @@
 #  locale.system
 
 lang:
-    file.sed:
-       - name: /etc/default/locale
-       - before: ^LANG=.*
-       - after: LANG=en_US.UTF-8
+  file.sed:
+    - name: /etc/default/locale
+    - before: ^LANG=.*
+    - after: LANG=en_US.UTF-8
 
 lc_all:
-    file.sed:
-       - name: /etc/default/locale
-       - before: ^LC_ALL=.*
-       - after: LC_ALL=en_US.UTF-8
+  file.sed:
+    - name: /etc/default/locale
+    - before: ^LC_ALL=.*
+    - after: LC_ALL=en_US.UTF-8
