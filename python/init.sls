@@ -15,8 +15,6 @@ python-headers:
       - libev-dev
       - libevent-dev
       - libmemcached-dev
-      - libjpeg62
-      - libjpeg62-dev
       - libjpeg8
       - libjpeg8-dev
       - libfreetype6
@@ -40,18 +38,18 @@ virtualenv:
 
 /usr/lib/libz.so:
   file.symlink:
-    - target: /usr/lib/x86_64-linux-gnu/libz.so
+    - target: /usr/lib/{{ grains['cpuarch'] }}-linux-gnu/libz.so
     - require:
       - pkg: python-headers
 
 /usr/lib/libfreetype.so:
   file.symlink:
-    - target: /usr/lib/x86_64-linux-gnu/libfreetype.so
+    - target: /usr/lib/{{ grains['cpuarch'] }}-linux-gnu/libfreetype.so
     - require:
       - pkg: python-headers
 
 /usr/lib/libjpeg.so:
   file.symlink:
-    - target: /usr/lib/x86_64-linux-gnu/libjpeg.so
+    - target: /usr/lib/{{ grains['cpuarch'] }}-linux-gnu/libjpeg.so
     - require:
       - pkg: python-headers
