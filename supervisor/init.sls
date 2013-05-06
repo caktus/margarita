@@ -1,6 +1,6 @@
 supervisor:
-    pkg:
-        - installed
-    service:
-        - running
-        - enable: True
+  pkg:
+    - installed
+  service:
+    - running
+    - enable: True
