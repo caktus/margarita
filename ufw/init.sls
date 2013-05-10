@@ -1,6 +1,8 @@
 ufw:
   pkg:
     - installed
+  service.running:
+    - enable: True
 
 firewall_policy:
   ufw.default:

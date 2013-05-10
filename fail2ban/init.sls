@@ -1,6 +1,10 @@
 fail2ban:
   pkg:
     - installed
+  service.running:
+    - enable: True
+    - watch:
+      - file: /etc/fail2ban/jail.local
 
 /etc/fail2ban/jail.local:
   file.managed:
