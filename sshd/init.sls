@@ -1,5 +1,6 @@
 include:
   - ufw
+  - fail2ban
 
 openssh-client:
   pkg:
