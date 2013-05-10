@@ -1,3 +1,6 @@
+include:
+  - ufw
+
 openssh-client:
   pkg:
     - installed
