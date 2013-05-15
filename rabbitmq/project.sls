@@ -7,7 +7,7 @@ broker-user-{{ pillar['project_name'] }}:
     - password: {{ pillar.get('secrets', {}).get('BROKER_PASSWORD') }}
     - force: True
     - require:
-      - service: rabbitmq
+      - service: rabbitmq-server
 
 broker-vhost-{{ pillar['project_name'] }}:
   rabbitmq_vhost.present:

@@ -1,6 +1,5 @@
-rabbitmq:
+rabbitmq-server:
   pkg:
-    - name: rabbitmq-server
     - installed
   service:
     - running
