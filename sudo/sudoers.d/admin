@@ -1,0 +1,2 @@
+# Members of the admin group may gain root privileges WIthout using a password
+%admin ALL=(ALL) NOPASSWD:ALL
