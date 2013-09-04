@@ -9,3 +9,5 @@ base-packages:
       - vim
       - byobu
       - ntp
+      - sudo
+
