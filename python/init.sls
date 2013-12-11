@@ -24,17 +24,17 @@ python-headers:
       - libxml2-dev
       - libxslt1-dev
 
-virtualenv:
+pip:
   pip.installed:
     - upgrade: True
     - require:
       - pkg: python-pkgs
 
-# virtualenvwrapper:
-#   pip.installed:
-#     - upgrade: True
-#     - require:
-#       - pkg: python-pkgs
+virtualenv:
+  pip.installed:
+    - upgrade: True
+    - require:
+      - pip: pip
 
 /usr/lib/libz.so:
   file.symlink:
