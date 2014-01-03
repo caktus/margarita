@@ -11,6 +11,9 @@ supervisor:
     - require:
       - file: supervisor_conf
       - file: supervisor_init
+    - watch:
+      - file: supervisor_conf
+      - file: supervisor_init
 
 supervisor_conf:
   file.managed:
@@ -19,6 +22,8 @@ supervisor_conf:
     - user: root
     - group: root
     - mode: 644
+    - require:
+      - file: supervisor_log
 
 # Symlink to default location expected by supervisorctl
 supervisor_default_conf:
@@ -36,11 +41,19 @@ supervisor_init:
     - group: root
     - mode: 744
 
+supervisor_log:
+  file.directory:
+    - name: /var/log/supervisor/
+    - user: root
+    - group: root
+    - mode: 744
+    - makedirs: True
+
 # update command that can easily be triggered using watch_in
 supervisor_update:
   cmd.run:
     - name: supervisorctl update
     - user: root
     - require:
-      - pip: supervisor
+      - service: supervisor
       - file: supervisor_default_conf
