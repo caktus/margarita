@@ -5,7 +5,6 @@ python-pkgs:
       - python-pip
       - python-dev
       - build-essential
-      - python-imaging
 
 python-headers:
   pkg:
