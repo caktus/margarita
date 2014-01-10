@@ -1,9 +1,7 @@
-deadsnakes:
-  pkgrepo.managed:
-    - humanname: Deadsnakes PPA
-    - ppa: fkrull/deadsnakes
+include:
+  - python
 
-python3-pkgs:
+python-33-pkgs:
   pkg:
     - installed
     - names:

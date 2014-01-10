@@ -1,9 +1,13 @@
-python-pkgs:
+deadsnakes:
+  pkgrepo.managed:
+    - humanname: Deadsnakes PPA
+    - ppa: fkrull/deadsnakes
+
+python-base-pkgs:
   pkg:
     - installed
     - names:
       - python-pip
-      - python-dev
       - build-essential
 
 python-headers:
@@ -27,7 +31,7 @@ setuptools:
   pip.installed:
     - upgrade: True
     - require:
-      - pkg: python-pkgs
+      - pkg: python-base-pkgs
 
 pip:
   pip.installed:
