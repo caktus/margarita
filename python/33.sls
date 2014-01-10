@@ -1,7 +1,10 @@
 include:
   - python
 
-python-33-pkgs:
+exclude:
+  - python.27
+
+python-pkgs:
   pkg:
     - installed
     - names:
