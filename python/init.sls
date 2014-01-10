@@ -23,11 +23,17 @@ python-headers:
       - libxml2-dev
       - libxslt1-dev
 
-pip:
+setuptools:
   pip.installed:
     - upgrade: True
     - require:
       - pkg: python-pkgs
+
+pip:
+  pip.installed:
+    - upgrade: True
+    - require:
+      - pip: setuptools
 
 virtualenv:
   pip.installed:
