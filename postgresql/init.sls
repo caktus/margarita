@@ -6,8 +6,6 @@ db-packages:
       - postgresql-server-dev-9.1
       - postgresql-client-9.1
       - libpq-dev
-    - require:
-      - file: /var/lib/postgresql/configure_utf-8.sh
 
 postgresql:
   pkg:
@@ -33,3 +31,5 @@ postgresql:
     - user: postgres
     - group: postgres
     - mode: 755
+    - require:
+      - service: postgresql
