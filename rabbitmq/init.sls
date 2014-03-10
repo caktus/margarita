@@ -17,8 +17,6 @@ rabbitmq-server:
 remove_defaults:
   rabbitmq_user.absent:
     - name: guest
-  rabbitmq_vhost.absent:
-    - name: /
 
 rabbitmq-config:
   file.managed:
