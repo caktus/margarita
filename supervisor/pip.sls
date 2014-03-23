@@ -5,12 +5,14 @@ supervisor:
       - pkg: python-pip
   pkg.removed:
     - name: supervisor
+
+supervisor_service:
   service:
+    - name: supervisor
     - running
     - enable: True
     - require:
-      - file: supervisor_conf
-      - file: supervisor_init
+      - pip: supervisor
     - watch:
       - file: supervisor_conf
       - file: supervisor_init
