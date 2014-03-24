@@ -1,3 +1,6 @@
+include:
+  - locale.utf8
+
 db-packages:
   pkg:
     - installed
@@ -15,7 +18,7 @@ postgresql:
     - enable: True
 
 /var/lib/postgresql/configure_utf-8.sh:
-  cmd.run:
+  cmd.wait:
     - name: bash /var/lib/postgresql/configure_utf-8.sh
     - user: postgres
     - cwd: /var/lib/postgresql
@@ -23,6 +26,7 @@ postgresql:
     - require:
       - pkg: postgresql
       - file: /etc/default/locale
+    - watch:
       - file: /var/lib/postgresql/configure_utf-8.sh
 
   file.managed:
