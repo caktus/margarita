@@ -24,6 +24,7 @@ supervisor_conf:
     - user: root
     - group: root
     - mode: 644
+    - makedirs: True
     - require:
       - file: supervisor_log
 
