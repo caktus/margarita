@@ -28,6 +28,14 @@ supervisor_conf:
     - require:
       - file: supervisor_log
 
+supervisor_conf_d:
+  file.directory:
+    - name: /etc/supervisor/conf.d
+    - user: root
+    - group: root
+    - mode: 744
+    - makedirs: True
+
 # Symlink to default location expected by supervisorctl
 supervisor_default_conf:
   file.symlink:
