@@ -1,3 +1,8 @@
+{% set version = salt['grains.filter_by']({
+  'precise': '9.1',
+  'trusty': '9.3',
+}, grain='oscodename', default='precise') %}
+
 include:
   - locale.utf8
 
@@ -5,9 +10,9 @@ db-packages:
   pkg:
     - installed
     - names:
-      - postgresql-contrib-9.1
-      - postgresql-server-dev-9.1
-      - postgresql-client-9.1
+      - postgresql-contrib-{{ version }}
+      - postgresql-server-dev-{{ version }}
+      - postgresql-client-{{ version }}
       - libpq-dev
 
 postgresql:
