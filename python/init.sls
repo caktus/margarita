@@ -29,6 +29,7 @@ python-headers:
 
 setuptools:
   pip.installed:
+    - name: setuptools<8.0
     - upgrade: True
     - require:
       - pkg: python-base-pkgs
