@@ -6,14 +6,14 @@ deadsnakes:
 python-base-pkgs:
   pkg:
     - installed
-    - pkgs:
+    - names:
       - python-pip
       - build-essential
 
 python-headers:
   pkg:
     - installed
-    - pkgs:
+    - names:
       - libpq-dev
       - libev-dev
       - libevent-dev
