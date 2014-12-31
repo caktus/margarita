@@ -7,7 +7,7 @@ exclude:
 python-pkgs:
   pkg:
     - installed
-    - pkgs:
+    - names:
       - python3.3
       - python3.3-dev
     - require:
