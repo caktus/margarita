@@ -7,6 +7,6 @@ exclude:
 python-pkgs:
   pkg:
     - installed
-    - names:
+    - pkgs:
       - python
       - python-dev
