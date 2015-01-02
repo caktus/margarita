@@ -26,6 +26,7 @@ python-headers:
       - zlib1g-dev
       - libxml2-dev
       - libxslt1-dev
+      - ghostscript
 
 setuptools:
   pip.installed:
