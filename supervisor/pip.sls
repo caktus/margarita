@@ -2,7 +2,7 @@ supervisor:
   pip.installed:
     - name: supervisor==3.0
     - require:
-      - pkg: python-pip
+      - pip: pip
   pkg.removed:
     - name: supervisor
 
