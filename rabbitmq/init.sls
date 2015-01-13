@@ -1,4 +1,5 @@
-include: base
+include:
+ - base
 
 rabbitmq-server:
   pkgrepo.managed:
