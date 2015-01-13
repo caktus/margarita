@@ -1,7 +1,11 @@
+include base
+
 deadsnakes:
   pkgrepo.managed:
     - humanname: Deadsnakes PPA
     - ppa: fkrull/deadsnakes
+    - require:
+      - pkg: base-packages
 
 python-base-pkgs:
   pkg:

@@ -1,7 +1,11 @@
+include: base
+
 rabbitmq-server:
   pkgrepo.managed:
     - name: deb http://www.rabbitmq.com/debian/ testing main
     - key_url: http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
+    - require:
+      - pkg: base-packages
     - require_in:
       - pkg: rabbitmq-server
   pkg:
