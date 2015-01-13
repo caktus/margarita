@@ -1,4 +1,4 @@
-include base
+include: base
 
 deadsnakes:
   pkgrepo.managed:
