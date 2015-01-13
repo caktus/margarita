@@ -3,6 +3,7 @@ base-packages:
     - installed
     - names:
       - python-software-properties
+      - python-apt
       - dpkg-dev
       - wget
       - build-essential
