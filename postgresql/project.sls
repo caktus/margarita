@@ -4,6 +4,7 @@ include:
 user-{{ pillar['project_name'] }}:
   postgres_user.present:
     - name: {{ pillar['project_name'] }}
+    - user: postgres
     - require:
       - service: postgresql
 

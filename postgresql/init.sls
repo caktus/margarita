@@ -1,13 +1,15 @@
 include:
   - locale.utf8
 
+{% set pg_version = salt['pillar.get']('postgres_version', '9.1') %}
+
 db-packages:
   pkg:
     - installed
     - names:
-      - postgresql-contrib-9.1
-      - postgresql-server-dev-9.1
-      - postgresql-client-9.1
+      - postgresql-contrib-{{ pg_version }}
+      - postgresql-server-dev-{{ pg_version }}
+      - postgresql-client-{{ pg_version }}
       - libpq-dev
 
 postgresql:
@@ -31,6 +33,9 @@ postgresql:
   file.managed:
     - name: /var/lib/postgresql/configure_utf-8.sh
     - source: salt://postgresql/default-locale.sh
+    - template: jinja
+    - context:
+        version: {{ pg_version }}
     - user: postgres
     - group: postgres
     - mode: 755
