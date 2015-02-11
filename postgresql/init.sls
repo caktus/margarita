@@ -33,3 +33,5 @@ postgresql:
     - user: postgres
     - group: postgres
     - mode: 755
+    - require:
+      - pkg: postgresql
