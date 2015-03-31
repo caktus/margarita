@@ -12,6 +12,6 @@ broker-user-{{ pillar['project_name'] }}:
 broker-vhost-{{ pillar['project_name'] }}:
   rabbitmq_vhost.present:
     - name: {{ pillar['project_name'] }}_{{ pillar['environment'] }}
-    - user: {{ pillar['project_name'] }}
+    - owner: {{ pillar['project_name'] }}
     - require:
       - rabbitmq_user: broker-user-{{ pillar['project_name'] }}
