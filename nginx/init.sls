@@ -6,9 +6,9 @@ nginx:
     - enable: True
 
 /etc/nginx/nginx.conf:
-  file.sed:
-    - before: "(# )?server_names_hash_bucket_size .+;"
-    - after: "server_names_hash_bucket_size 64;"
+  file.replace:
+    - pattern: "(# )?server_names_hash_bucket_size .+;"
+    - repl: "server_names_hash_bucket_size 64;"
     - require_in:
       - service: nginx
 
