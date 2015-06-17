@@ -1,6 +1,14 @@
+nginx-ppa:
+  pkgrepo.managed:
+    - humanname: Nginx PPA
+    - ppa: nginx/stable
+    - require_in:
+      - pkg: nginx
+
 nginx:
-  pkg:
-    - installed
+  pkg.latest:
+    - name: nginx
+    - refresh: true
   service:
     - running
     - enable: True
