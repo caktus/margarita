@@ -21,3 +21,39 @@ check out `margarita on Github <https://github.com/caktus/margarita>`_.
 
 Development sponsored by `Caktus Consulting Group, LLC
 <http://www.caktusgroup.com/services>`_.
+
+
+Versions
+--------------------------------------
+
+See the CHANGES.rst file for a list of changes in each version of Margarita
+since we started applying version numbers.  The version number in the top
+entry is the version of Margarita that you're looking at; it's not stored
+anywhere else for now.
+
+To make a new release:
+
+* Install `git flow <https://github.com/nvie/gitflow/wiki/Installation>`_
+  if you don't have it already.  (Hint: ``apt-get install git-flow`` or
+  ``brew install git-flow``.)
+* Run ``git flow init -d`` in your local working tree if you haven't before.
+* Make sure you have no local uncommited changes
+* Make sure you have the latest master & develop branches locally (pull both)::
+
+    git checkout master
+    git pull origin master
+    git checkout develop
+    git pull origin develop
+
+* Run "git flow release start X.Y.Z" where X.Y.Z is the new version number.
+* Edit CHANGES.rst with the new version number and the changes since the last
+  release. Pay special attention to documenting any changes that could break
+  projects using older versions of Margarita.
+* Commit those changes.
+* Run "git flow release finish -Fp -m X.Y.Z X.Y.Z" and follow the instructions.
+* Push both develop & master with tags::
+
+    git checkout master
+    git push origin master --tags
+    git checkout develop
+    git push origin develop --tags
