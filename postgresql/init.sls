@@ -12,12 +12,20 @@ db-packages:
       - postgresql-client-{{ pg_version }}
       - libpq-dev
 
+no_meta_postgresql:
+  pkg:
+    - removed
+    - name: postgresql
+
 postgresql:
   pkg:
     - installed
+    - name: postgresql-{{ pg_version }}
   service:
     - running
     - enable: True
+  require:
+    - pkg: no_meta_postgresql
 
 /var/lib/postgresql/configure_utf-8.sh:
   cmd.wait:
