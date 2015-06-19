@@ -12,6 +12,10 @@ db-packages:
       - postgresql-client-{{ pg_version }}
       - libpq-dev
 
+# The "postgresql" package is a meta package that depends
+# on whatever version of Postgres Ubuntu thinks is latest.
+# Make sure that's not installed because it can pull in the
+# wrong version for us.
 no_meta_postgresql:
   pkg:
     - removed
@@ -27,6 +31,9 @@ postgresql:
   require:
     - pkg: no_meta_postgresql
 
+{% if pg_version|float < 9.3 %}
+# With Postgres 9.3, the default DB cluster is UTF-8 so we don't need all this mess.
+# (Don't know if any older versions of PG are the same.)
 /var/lib/postgresql/configure_utf-8.sh:
   cmd.wait:
     - name: bash /var/lib/postgresql/configure_utf-8.sh
@@ -49,3 +56,4 @@ postgresql:
     - mode: 755
     - require:
       - pkg: postgresql
+{% endif %}
