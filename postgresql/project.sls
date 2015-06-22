@@ -19,4 +19,3 @@ database-{{ pillar['project_name'] }}:
     - lc_ctype: en_US.UTF-8
     - require:
       - postgres_user: user-{{ pillar['project_name'] }}
-      - file: /var/lib/postgresql/configure_utf-8.sh
