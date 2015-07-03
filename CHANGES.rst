@@ -2,6 +2,11 @@ Margarita
 
 Changes - always add to the top.
 
+v1.0.2 on Jul 3, 2015
+----------------------
+* Nginx fixes: require nginx to be installed, and before we try to
+  edit its config file.
+
 v1.0.1 on June 22, 2015
 -----------------------
 
