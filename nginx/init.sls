@@ -17,6 +17,8 @@ nginx:
   file.replace:
     - pattern: "(# )?server_names_hash_bucket_size .+;"
     - repl: "server_names_hash_bucket_size 64;"
+    - require:
+      - pkg: nginx
     - require_in:
       - service: nginx
 
