@@ -6,6 +6,7 @@ rabbitmq-server:
       - pkg: rabbitmq-server
   pkg:
     - latest
+    - refresh: True
   service:
     - running
     - enable: True
