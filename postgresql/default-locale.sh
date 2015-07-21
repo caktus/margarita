@@ -1,3 +1,3 @@
-pg_ctlcluster --force {{ version }} main stop
-pg_dropcluster {{ version }} main
-pg_createcluster --start -e UTF-8 {{ version }} main
+# Dummy no-op script
+echo "configure_utf-8.sh is deprecated. Remove it from your require blocks."
+exit 1
