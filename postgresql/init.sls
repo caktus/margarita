@@ -33,7 +33,9 @@ postgresql:
 
 {% if pg_version|float < 9.3 %}
 # With Postgres 9.3, the default DB cluster is UTF-8 so we don't need all this mess.
-# (Don't know if any older versions of PG are the same.)
+# Don't know if any older versions of PG are the same, but older versions of the
+# django-project-template will definitely be requiring this file, so keep it in place
+# as a no-op script, for now.
 /var/lib/postgresql/configure_utf-8.sh:
   cmd.wait:
     - name: bash /var/lib/postgresql/configure_utf-8.sh
