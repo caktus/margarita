@@ -57,3 +57,8 @@ To make a new release:
     git push origin master --tags
     git checkout develop
     git push origin develop --tags
+
+* If this release is ready to be used by new projects based on our `project
+  template <https://github.com/caktus/django-project-template>`_, then be sure
+  to `update this tag
+  <https://github.com/caktus/django-project-template/blob/master/conf/salt/margarita.sls#L8>`_
