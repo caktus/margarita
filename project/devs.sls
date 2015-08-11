@@ -9,7 +9,11 @@ include:
     - shell: /bin/bash
     - home: /home/{{ user }}
     - remove_groups: False
+{% if 'groups' in args %}
+    - groups: {{ args['groups'] }}
+{% else %}
     - groups: [admin, login]
+{% endif %}
   require:
     - group: admin
     - group: login
