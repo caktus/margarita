@@ -15,7 +15,6 @@ venv:
       - file: root_dir
       - file: project_repo
       - pkg: python-pkgs
-      - pkg: python-headers
 
 pip_requirements:
   pip.installed:

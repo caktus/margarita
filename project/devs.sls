@@ -13,10 +13,10 @@ include:
     - groups: {{ args['groups'] }}
 {% else %}
     - groups: [admin, login]
+    - require:
+      - group: admin
+      - group: login
 {% endif %}
-  require:
-    - group: admin
-    - group: login
 
 {% if 'public_key' in args %}
   ssh_auth:
