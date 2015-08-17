@@ -141,3 +141,41 @@ users
 There are lots of optional things. For example, look at the code in ``project/db/postgresql.conf``
 to see all the postgres tuning parameters that can be overridden by setting variables
 in pillar.
+
+
+New Relic
+---------
+
+To enable New Relic monitoring for an environment:
+
+* Get a license key
+* In pillar, add a variable ``secrets.newrelic_license_key`` containing the license key::
+
+    secrets:
+        newrelic_license_key: larrymoecurley
+
+* Add state ``newrelic_sysmon`` to your Salt ``top.sls`` in the ``base`` section (for all servers).
+  It's safe to add that unconditionally for all environments; it's a no-op if no New Relic
+  license key has been defined::
+
+    base:
+      '*':
+        - ...
+        - newrelic_sysmon
+
+* Add state ``project.newrelic_webmon`` to your Salt ``top.sls`` for your servers that run Django
+  processes (Web servers or workers).
+  It's safe to add that unconditionally for all environments; it's a no-op if no New Relic
+  license key has been defined::
+
+      'roles:web':
+        - match: grain
+        - project.web.app
+        - project.newrelic_webmon
+      'roles:worker':
+        - match: grain
+        - project.worker.default
+        - project.worker.beat
+        - project.newrelic_webmon
+
+* Be sure ``newrelic`` is in the Python requirements of the project.

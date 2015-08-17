@@ -20,6 +20,8 @@ default_conf:
         virtualenv_root: "{{ vars.venv_dir }}"
         directory: "{{ vars.source_dir }}"
         name: "celery-default"
+        newrelic_license_key: "{{ vars.newrelic_license_key }}"
+        newrelic_config_file: "{{ vars.services_dir }}/newrelic-worker.ini"
         command: "worker"
         flags: "--loglevel=INFO"
     - require:

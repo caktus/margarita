@@ -32,3 +32,13 @@ ssh_dir:
     - makedirs: True
     - require:
       - user: project_user
+
+services_dir:
+  file.directory:
+    - name: {{ vars.services_dir }}
+    - user: {{ pillar['project_name'] }}
+    - group: www-data
+    - mode: 775
+    - makedirs: True
+    - require:
+      - file: root_dir
