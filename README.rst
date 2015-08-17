@@ -1,7 +1,7 @@
 Margarita
 =======================================
 
-This repository hold a collection of states and modules for deployments using
+This repository holds a collection of states and modules for deployments using
 `SaltStack <http://saltstack.com/>`_. These exist primarily to support the
 `Caktus Django project template <https://github.com/caktus/django-project-template>`_.
 
@@ -62,3 +62,82 @@ To make a new release:
   template <https://github.com/caktus/django-project-template>`_, then be sure
   to `update this tag
   <https://github.com/caktus/django-project-template/blob/master/conf/salt/margarita.sls#L8>`_
+
+
+Variables
+---------
+
+The following variables are expected to be defined in the
+Salt pillar when using Margarita's Salt states.
+
+domain
+    The public domain name of the instance, e.g. "mysite.example.com".
+env
+    If provided, this should be a dictionary. Each key-value in it will
+    be added as an environment variable when running the Django processes
+    (e.g. Gunicorn, celery workers).
+environment
+    E.g. 'production', 'staging', or 'local'.
+github_deploy_key
+    Optional ssh private key to use when talking to github.
+http_auth
+    If specified, apply HTTP Basic Auth to the site.  Username and password
+    should be PGP encrypted (see docs).  Example::
+
+        http_auth:
+           username: |-
+            -----BEGIN PGP MESSAGE-----
+            -----END PGP MESSAGE-----
+           password: |-
+            -----BEGIN PGP MESSAGE-----
+            -----END PGP MESSAGE-----
+
+less_version
+    What version of Less (the CSS compiler) to use.
+postgres_version
+    Version of postgres to install.  E.g. '9.3'
+project_name
+    Name of the project. Must be a valid identifier, so make it lowercase
+    and no spaces or punctuation other than underscore.
+python_version
+    What version of Python the project uses, e.g. "2.7" or "3.4".
+repo
+    Where to get the project code.  `url` should be a URL in the format you'd use
+    with ``git clone``, like ``git@github.com:CHANGEME/CHANGEME.git``
+    or ``https://github.com/CHANGEME/CHANGEME.git``.  `branch` should be
+    a branch name, tag name, or revision::
+
+      repo:
+        url: git@github.com:CHANGEME/CHANGEME.git
+        branch: master
+
+secrets
+    Mostly just like `env`. A few specific values are expected to be here;
+    see below.
+secrets.BROKER_PASSWORD
+    Password to assign to the Rabbitmq user (which is always named
+    {{ project_name }}_{{ environment }}`).
+secrets.DB_PASSWORD
+    Password to assign to the Postgres user.  (The user and datebase are always named
+    {{ project_name }}_{{ environment }}`.)
+ssl_cert
+    If ssl_key and ssl_cert are specified, use this key/cert. Otherwise,
+    generate a self-signed one.
+ssl_key
+    If ssl_key and ssl_cert are specified, use this key/cert. Otherwise,
+    generate a self-signed one.
+users
+    This should be a list of developer users and their public SSH keys, to define on the servers.
+    Example::
+
+      users:
+         example-user:
+           public_key:
+             - ssh-dss AAAAB3NzaC1kc3MAAACBAP/dCNcAJED+pBsEwH01E4NU2xrvoB6H5gXkvQHWIKUuMF3MWXgSGhKpgVqLJKh+d0gwuKyI9344HM5dFs4z3E0JhI7Fg4uXIYu1SwuqnxO+D18WLVGt4gCn57JCjLy/c8LJWAHJWFb2v9t4fayC+oBiyEvpjI6VYIJnSvO3D4tjAAAAFQCNzcKi0sehN1Jw+zB6ccMlHt5E6wAAAIEAnW18UHG/O+RIkJazTJ7qFlOb79RS1nnvnHAvtfuiAPIBmeJcKoZkiQzeBYtFereSRHmSug9DsqHK6C5PrP36UMZYhDkqqp5gpJexmokI2kt3AVxJwro7cjy6Tq+0yt+lwqH4JEblybk7yPeRNC1ihnp2CSipC5LP1PydIcgN9/UAAACAeH1OxUzgCfpM06cfKL57gtjIS34ryCdkT2oYfYOANa8vahN2JqxB004o+z2CnQ9DkTqzzf9jUYI/qal19+zYhn8Bd/FdPVp+VTfRpR17fQKuTWrnF7g6jNVN2ltwHo6o99vrCzjHhJHZ2EXOODzAUrACptyfQv/ZCutkjAg44YE= copelco@montgomery.local
+         example2:
+           public_key:
+             - ssh-dss AAAAB3NzaC1kc3MAAACBAP/dCNcAJED+pBsEwH01E4NU2xrvoB6H5gXkvQHWIKUuMF3MWXgSGhKpgVqLJKh+d0gwuKyI9344HM5dFs4z3E0JhI7Fg4uXIYu1SwuqnxO+D18WLVGt4gCn57JCjLy/c8LJWAHJWFb2v9t4fayC+oBiyEvpjI6VYIJnSvO3D4tjAAAAFQCNzcKi0sehN1Jw+zB6ccMlHt5E6wAAAIEAnW18UHG/O+RIkJazTJ7qFlOb79RS1nnvnHAvtfuiAPIBmeJcKoZkiQzeBYtFereSRHmSug9DsqHK6C5PrP36UMZYhDkqqp5gpJexmokI2kt3AVxJwro7cjy6Tq+0yt+lwqH4JEblybk7yPeRNC1ihnp2CSipC5LP1PydIcgN9/UAAACAeH1OxUzgCfpM06cfKL57gtjIS34ryCdkT2oYfYOANa8vahN2JqxB004o+z2CnQ9DkTqzzf9jUYI/qal19+zYhn8Bd/FdPVp+VTfRpR17fQKuTWrnF7g6jNVN2ltwHo6o99vrCzjHhJHZ2EXOODzAUrACptyfQv/ZCutkjAg44YE= copelco@montgomery.local
+
+There are lots of optional things. For example, look at the code in ``project/db/postgresql.conf``
+to see all the postgres tuning parameters that can be overridden by setting variables
+in pillar.
