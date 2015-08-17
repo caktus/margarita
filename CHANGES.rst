@@ -2,6 +2,18 @@ Margarita
 
 Changes - always add to the top.
 
+v 1.0.4 on Aug 17, 2015
+-----------------------
+
+* Copy all Salt states except margarita from the django project template
+  to this repo, so we can then remove them from the django project template
+  and be able to maintain them by updating margarita.  (#56)
+
+* Remove dropcluster (#52)
+
+* Document that after a new Margarita release, the django project template's
+  instructions should be updated to point to it.  (#54)
+
 v 1.0.3 on Jul 27, 2015
 -----------------------
 * Replace configure_utf-8.sh with a no-op command.
