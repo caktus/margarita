@@ -102,9 +102,9 @@ project_name
 python_version
     What version of Python the project uses, e.g. "2.7" or "3.4".
 repo
-    Where to get the project code.  `url` should be a URL in the format you'd use
+    Where to get the project code.  ``url`` should be a URL in the format you'd use
     with ``git clone``, like ``git@github.com:CHANGEME/CHANGEME.git``
-    or ``https://github.com/CHANGEME/CHANGEME.git``.  `branch` should be
+    or ``https://github.com/CHANGEME/CHANGEME.git``.  ``branch`` should be
     a branch name, tag name, or revision::
 
       repo:
@@ -112,14 +112,14 @@ repo
         branch: master
 
 secrets
-    Mostly just like `env`. A few specific values are expected to be here;
+    Mostly just like ``env``. A few specific values are expected to be here;
     see below.
 secrets.BROKER_PASSWORD
     Password to assign to the Rabbitmq user (which is always named
-    {{ project_name }}_{{ environment }}`).
+    ``{{ project_name }}_{{ environment }}``).
 secrets.DB_PASSWORD
     Password to assign to the Postgres user.  (The user and datebase are always named
-    {{ project_name }}_{{ environment }}`.)
+    ``{{ project_name }}_{{ environment }}``.)
 ssl_cert
     If ssl_key and ssl_cert are specified, use this key/cert. Otherwise,
     generate a self-signed one.
