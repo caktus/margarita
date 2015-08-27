@@ -29,10 +29,7 @@ gunicorn_conf:
         settings: "{{ pillar['project_name'] }}.settings.deploy"
         virtualenv_root: "{{ vars.venv_dir }}"
         directory: "{{ vars.source_dir }}"
-{% if vars.newrelic_license_key %}
-        newrelic_license_key: "{{ vars.newrelic_license_key }}"
-        newrelic_config_file: "{{ vars.services_dir }}/newrelic-app.ini"
-{% endif %}
+        use_newrelic: {{ vars.use_newrelic }}
     - require:
       - pip: supervisor
       - file: log_dir

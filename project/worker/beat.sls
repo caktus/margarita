@@ -19,10 +19,7 @@ beat_conf:
         virtualenv_root: "{{ vars.venv_dir }}"
         directory: "{{ vars.source_dir }}"
         name: "celery-beat"
-{% if vars.newrelic_license_key %}
-        newrelic_license_key: "{{ vars.newrelic_license_key }}"
-        newrelic_config_file: "{{ vars.services_dir }}/newrelic-worker.ini"
-{% endif %}
+        use_newrelic: {{ vars.use_newrelic }}
         command: "beat"
         flags: "--schedule={{ vars.path_from_root('celerybeat-schedule.db') }} --pidfile={{ vars.path_from_root('celerybeat.pid') }} --loglevel=INFO"
     - require:

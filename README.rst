@@ -148,11 +148,41 @@ New Relic
 
 To enable New Relic monitoring for an environment:
 
-* Get a license key
-* In pillar, add a variable ``secrets.newrelic_license_key`` containing the license key::
+* Get a license key for each environment where you want to use New Relic.
+* In pillar, add a variable ``secrets.NEWRELIC_LICENSE_KEY`` containing the license key
+  for each environment::
 
+    # <environment>.sls
     secrets:
-        newrelic_license_key: larrymoecurley
+        NEWRELIC_LICENSE_KEY: larrymoecurley
+
+* Add variables under "env:" for other configuration for the Python agent.
+  You probably want at least::
+
+    # project.sls
+    env:
+        NEW_RELIC_HIGH_SECURITY: "true"
+        NEW_RELIC_LOG: "/var/log/newrelic/agent.log"
+
+    # <environment>.sls
+    env:
+        NEWRELIC_APP_NAME: myproject <environment>
+        NEW_RELIC_MONITOR_MODE: "true" or "false"
+
+  Be sure to quote "true" and "false" as above, to avoid Salt/YAML turning these into
+  real Booleans; we want the strings "true" or "false" in the environment.
+
+  You can put some values in ``project.sls`` and others in ``<environment>.sls``.  Just
+  be consistent for a given key; if the same key is present in both
+  ``project.sls`` and the current ``<environment>.sls`` file, Salt makes no
+  guarantees about which value you'll end up with.
+
+  See https://docs.newrelic.com/docs/agents/python-agent/installation-configuration/python-agent-configuration#environment-variables
+  for a list of things you can configure this way.
+
+  Note that any environment where NEWRELIC_LICENSE_KEY is not set will not
+  include any New Relic configuration, so it's safe to put other settings
+  in ``project.sls`` even if you're not using New Relic in every environment.
 
 * Add state ``newrelic_sysmon`` to your Salt ``top.sls`` in the ``base`` section (for all servers).
   It's safe to add that unconditionally for all environments; it's a no-op if no New Relic
@@ -162,20 +192,5 @@ To enable New Relic monitoring for an environment:
       '*':
         - ...
         - newrelic_sysmon
-
-* Add state ``project.newrelic_webmon`` to your Salt ``top.sls`` for your servers that run Django
-  processes (Web servers or workers).
-  It's safe to add that unconditionally for all environments; it's a no-op if no New Relic
-  license key has been defined::
-
-      'roles:web':
-        - match: grain
-        - project.web.app
-        - project.newrelic_webmon
-      'roles:worker':
-        - match: grain
-        - project.worker.default
-        - project.worker.beat
-        - project.newrelic_webmon
 
 * Be sure ``newrelic`` is in the Python requirements of the project.

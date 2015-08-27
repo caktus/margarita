@@ -27,4 +27,4 @@
 {% set app_minions = salt['mine.get']('P@roles:(worker|web) and G@environment:' + pillar['environment'], 'network.interfaces', expr_form='compound') %}
 {% set balancer_minions = salt['mine.get']('G@roles:balancer and G@environment:' + pillar['environment'], 'network.interfaces', expr_form='compound') %}
 
-{% set newrelic_license_key = salt['pillar.get']('secrets:newrelic_license_key', False) %}
+{% set use_newrelic = salt['pillar.get']('secrets:NEWRELIC_LICENSE_KEY', False) %}

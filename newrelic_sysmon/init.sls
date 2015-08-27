@@ -1,7 +1,6 @@
 {% import 'project/_vars.sls' as vars with context %}
 
-# Just in case this state gets included but no newrelic license key is available
-{% if vars.newrelic_license_key %}
+{% if vars.use_newrelic %}
 
 # Install system monitoring
 newrelic_repo:
@@ -28,7 +27,7 @@ newrelic_sysmon_cfg:
     - mode: 440
     - template: jinja
     - context:
-      newrelic_license_key: "{{ vars.newrelic_license_key }}"
+        newrelic_license_key: "{{ salt['pillar']['secrets']['NEWRELIC_LICENSE_KEY'] }}"
     - require:
       - pkg: newrelic_sysmon_pkg
 
