@@ -149,12 +149,12 @@ New Relic
 To enable New Relic monitoring for an environment:
 
 * Get a license key for each environment where you want to use New Relic.
-* In pillar, add a variable ``secrets.NEWRELIC_LICENSE_KEY`` containing the license key
+* In pillar, add a variable ``secrets.NEW_RELIC_LICENSE_KEY`` containing the license key
   for each environment::
 
     # <environment>.sls
     secrets:
-        NEWRELIC_LICENSE_KEY: larrymoecurley
+        NEW_RELIC_LICENSE_KEY: larrymoecurley
 
 * Add variables under "env:" for other configuration for the Python agent.
   You probably want at least::
@@ -166,7 +166,7 @@ To enable New Relic monitoring for an environment:
 
     # <environment>.sls
     env:
-        NEWRELIC_APP_NAME: myproject <environment>
+        NEW_RELIC_APP_NAME: myproject <environment>
         NEW_RELIC_MONITOR_MODE: "true" or "false"
 
   Be sure to quote "true" and "false" as above, to avoid Salt/YAML turning these into
@@ -180,7 +180,7 @@ To enable New Relic monitoring for an environment:
   See https://docs.newrelic.com/docs/agents/python-agent/installation-configuration/python-agent-configuration#environment-variables
   for a list of things you can configure this way.
 
-  Note that any environment where NEWRELIC_LICENSE_KEY is not set will not
+  Note that any environment where NEW_RELIC_LICENSE_KEY is not set will not
   include any New Relic configuration, so it's safe to put other settings
   in ``project.sls`` even if you're not using New Relic in every environment.
 
