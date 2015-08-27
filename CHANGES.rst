@@ -2,6 +2,23 @@ Margarita
 
 Changes - always add to the top.
 
+UNRELEASED
+----------
+
+* Set env var ``DOMAIN`` to contain the site's domain (from the Pillar). Remove
+  the env var ``ALLOWED_HOSTS`` which was previously holding that information.
+
+  Deprecation Note: Change any references to the ``ALLOWED_HOSTS`` env var to
+  instead be ``DOMAIN``. The most likely location where this is being used is
+  in the Django settings::
+
+    ALLOWED_HOSTS = os.environ['ALLOWED_HOSTS'].split(';')
+
+  should be changed to::
+
+    ALLOWED_HOSTS = [os.environ['DOMAIN']]
+
+
 v 1.0.4 on Aug 17, 2015
 -----------------------
 
