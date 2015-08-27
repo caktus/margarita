@@ -15,7 +15,7 @@ newrelic_ini_app:
     - mode: 440
     - template: jinja
     - context:
-      log_file: "{{ vars.log_dir }}/newrelic-python-agent.log"
+      log_file: "{{ vars.log_dir }}/newrelic-python-agent-gunicorn.log"
       newrelic_license_key: "{{ vars.newrelic_license_key}}"
       newrelic_app_name: "{{ pillar['project_name'] }} {{ pillar['environment'] }} (Gunicorn); {{ pillar['project_name'] }} {{ pillar['environment'] }}"
     - require:
@@ -30,7 +30,7 @@ newrelic_ini_worker:
     - mode: 440
     - template: jinja
     - context:
-      log_file: "{{ vars.log_dir }}/newrelic-python-agent.log"
+      log_file: "{{ vars.log_dir }}/newrelic-python-agent-celery.log"
       newrelic_license_key: "{{ vars.newrelic_license_key }}"
       newrelic_app_name: "{{ pillar['project_name'] }} {{ pillar['environment'] }} (Celery); {{ pillar['project_name'] }} {{ pillar['environment'] }}"
     - require:
