@@ -2,6 +2,12 @@ Margarita
 
 Changes - always add to the top.
 
+v 1.0.5 on Aug 31, 2015
+-----------------------
+
+* Make sure we checkout the source repo before things that depend on it
+  being there. (#68)
+
 v 1.0.4 on Aug 17, 2015
 -----------------------
 
