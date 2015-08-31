@@ -53,6 +53,8 @@ project_repo:
   file.directory:
     - name: {{ vars.source_dir }}
     - user: {{ pillar['project_name'] }}
+    - require:
+      - git: project_repo
   {% endif %}
 
 delete_pyc:
