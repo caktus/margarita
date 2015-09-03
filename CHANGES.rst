@@ -2,6 +2,11 @@ Margarita
 
 Changes - always add to the top.
 
+v 1.0.6 on Sep 3, 2015
+----------------------
+
+* Add support for New Relic (see README for docs). (#58)
+
 v 1.0.5 on Aug 31, 2015
 -----------------------
 
