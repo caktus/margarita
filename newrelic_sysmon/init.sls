@@ -27,7 +27,7 @@ newrelic_sysmon_cfg:
     - mode: 440
     - template: jinja
     - context:
-        new_relic_license_key: "{{ salt['pillar']['secrets']['NEW_RELIC_LICENSE_KEY'] }}"
+        new_relic_license_key: "{{ pillar['secrets']['NEW_RELIC_LICENSE_KEY'] }}"
     - require:
       - pkg: newrelic_sysmon_pkg
 

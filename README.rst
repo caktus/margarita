@@ -150,11 +150,13 @@ To enable New Relic monitoring for an environment:
 
 * Get a license key for each environment where you want to use New Relic.
 * In pillar, add a variable ``secrets.NEW_RELIC_LICENSE_KEY`` containing the license key
-  for each environment::
+  for each environment (and be sure to encrypt it)::
 
     # <environment>.sls
     secrets:
-        NEW_RELIC_LICENSE_KEY: larrymoecurley
+        NEW_RELIC_LICENSE_KEY: |-
+            -----BEGIN PGP MESSAGE-----
+            -----END PGP MESSAGE-----
 
 * Add variables under "env:" for other configuration for the Python agent.
   You probably want at least::
