@@ -29,6 +29,7 @@ gunicorn_conf:
         settings: "{{ pillar['project_name'] }}.settings.deploy"
         virtualenv_root: "{{ vars.venv_dir }}"
         directory: "{{ vars.source_dir }}"
+        use_newrelic: {{ vars.use_newrelic }}
     - require:
       - pip: supervisor
       - file: log_dir
