@@ -2,6 +2,17 @@ Margarita
 
 Changes - always add to the top.
 
+UNRELEASED
+----------
+
+* Remove duplicate specification of env vars (#65)
+
+  Upgrade Note: You must have installed and configured dotenv before upgrading
+  your project repo to use this version of Margarita. See
+  https://github.com/caktus/django-project-template/pull/203 (wsgi) and
+  https://github.com/caktus/django-project-template/pull/208 (celery) for
+  examples.
+
 v 1.0.8 on Sep 4, 2015
 ----------------------
 
