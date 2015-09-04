@@ -18,6 +18,23 @@ UNRELEASED
 
     ALLOWED_HOSTS = [os.environ['DOMAIN']]
 
+v 1.0.7 on Sep 3, 2015
+----------------------
+
+* Fix for bug in new Relic support (#70)
+
+v 1.0.6 on Sep 3, 2015
+----------------------
+
+(DO NOT USE, use v1.0.7 instead)
+
+* Add support for New Relic (see README for docs). (#58)
+
+v 1.0.5 on Aug 31, 2015
+-----------------------
+
+* Make sure we checkout the source repo before things that depend on it
+  being there. (#68)
 
 v 1.0.4 on Aug 17, 2015
 -----------------------

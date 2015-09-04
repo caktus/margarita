@@ -141,3 +141,59 @@ users
 There are lots of optional things. For example, look at the code in ``project/db/postgresql.conf``
 to see all the postgres tuning parameters that can be overridden by setting variables
 in pillar.
+
+
+New Relic
+---------
+
+To enable New Relic monitoring for an environment:
+
+* Get a license key for each environment where you want to use New Relic.
+* In pillar, add a variable ``secrets.NEW_RELIC_LICENSE_KEY`` containing the license key
+  for each environment (and be sure to encrypt it)::
+
+    # <environment>.sls
+    secrets:
+        NEW_RELIC_LICENSE_KEY: |-
+            -----BEGIN PGP MESSAGE-----
+            -----END PGP MESSAGE-----
+
+* Add variables under "env:" for other configuration for the Python agent.
+  You probably want at least::
+
+    # project.sls
+    env:
+        NEW_RELIC_LOG: "/var/log/newrelic/agent.log"
+        # Only if your account has high security enabled:
+        NEW_RELIC_HIGH_SECURITY: "true"
+
+    # <environment>.sls
+    env:
+        NEW_RELIC_APP_NAME: myproject <environment>
+        NEW_RELIC_MONITOR_MODE: "true" or "false"
+
+  Be sure to quote "true" and "false" as above, to avoid Salt/YAML turning these into
+  real Booleans; we want the strings "true" or "false" in the environment.
+
+  You can put some values in ``project.sls`` and others in ``<environment>.sls``.  Just
+  be consistent for a given key; if the same key is present in both
+  ``project.sls`` and the current ``<environment>.sls`` file, Salt makes no
+  guarantees about which value you'll end up with.
+
+  See https://docs.newrelic.com/docs/agents/python-agent/installation-configuration/python-agent-configuration#environment-variables
+  for a list of things you can configure this way.
+
+  Note that any environment where NEW_RELIC_LICENSE_KEY is not set will not
+  include any New Relic configuration, so it's safe to put other settings
+  in ``project.sls`` even if you're not using New Relic in every environment.
+
+* Add state ``newrelic_sysmon`` to your Salt ``top.sls`` in the ``base`` section (for all servers).
+  It's safe to add that unconditionally for all environments; it's a no-op if no New Relic
+  license key has been defined::
+
+    base:
+      '*':
+        - ...
+        - newrelic_sysmon
+
+* Be sure ``newrelic`` is in the Python requirements of the project.

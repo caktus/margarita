@@ -19,6 +19,7 @@ beat_conf:
         virtualenv_root: "{{ vars.venv_dir }}"
         directory: "{{ vars.source_dir }}"
         name: "celery-beat"
+        use_newrelic: {{ vars.use_newrelic }}
         command: "beat"
         flags: "--schedule={{ vars.path_from_root('celerybeat-schedule.db') }} --pidfile={{ vars.path_from_root('celerybeat.pid') }} --loglevel=INFO"
     - require:
