@@ -163,8 +163,9 @@ To enable New Relic monitoring for an environment:
 
     # project.sls
     env:
-        NEW_RELIC_HIGH_SECURITY: "true"
         NEW_RELIC_LOG: "/var/log/newrelic/agent.log"
+        # Only if your account has high security enabled:
+        NEW_RELIC_HIGH_SECURITY: "true"
 
     # <environment>.sls
     env:

@@ -2,6 +2,25 @@ Margarita
 
 Changes - always add to the top.
 
+v 1.0.8 on Sep 4, 2015
+----------------------
+
+* Add state to deploy elasticsearch (#72)
+* Note that New Relic high security shouldn't be enabled unless
+  the account has it turned on. (#71)
+
+v 1.0.7 on Sep 3, 2015
+----------------------
+
+* Fix for bug in new Relic support (#70)
+
+v 1.0.6 on Sep 3, 2015
+----------------------
+
+(DO NOT USE, use v1.0.7 instead)
+
+* Add support for New Relic (see README for docs). (#58)
+
 v 1.0.5 on Aug 31, 2015
 -----------------------
 
