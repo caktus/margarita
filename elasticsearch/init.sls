@@ -31,7 +31,7 @@ elasticsearch:
 elasticsearch_conf:
   file.managed:
     - name: /etc/elasticsearch/elasticsearch.yml
-    - source: salt://project/search/elasticsearch.yml
+    - source: salt://elasticsearch/elasticsearch.yml
     - mode: 644
     - user: root
     - group: root
@@ -41,7 +41,7 @@ elasticsearch_conf:
 elasticsearch_default:
   file.managed:
     - name: /etc/default/elasticsearch
-    - source: salt://project/search/default
+    - source: salt://elasticsearch/default
     - mode: 644
     - user: root
     - group: root
