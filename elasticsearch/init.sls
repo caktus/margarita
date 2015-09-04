@@ -32,6 +32,7 @@ elasticsearch_conf:
   file.managed:
     - name: /etc/elasticsearch/elasticsearch.yml
     - source: salt://elasticsearch/elasticsearch.yml
+    - template: jinja
     - mode: 644
     - user: root
     - group: root
