@@ -9,9 +9,8 @@ UNRELEASED
 
   Upgrade Note: You must have installed and configured dotenv before upgrading
   your project repo to use this version of Margarita. See
-  https://github.com/caktus/django-project-template/pull/203 (wsgi) and
-  https://github.com/caktus/django-project-template/pull/208 (celery) for
-  examples.
+  https://github.com/caktus/django-project-template/pull/208 for examples on
+  code that you need to add for wsgi and celery processes.
 
 v 1.0.8 on Sep 4, 2015
 ----------------------
