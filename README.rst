@@ -187,6 +187,12 @@ To enable New Relic monitoring for an environment:
   include any New Relic configuration, so it's safe to put other settings
   in ``project.sls`` even if you're not using New Relic in every environment.
 
+* If you are using elasticsearch and would like New Relic monitoring of that as well,
+  add to pillar somewhere::
+
+  # project.sls or <environment>.sls
+  elasticsearch_newrelic: true
+
 * Add state ``newrelic_sysmon`` to your Salt ``top.sls`` in the ``base`` section (for all servers).
   It's safe to add that unconditionally for all environments; it's a no-op if no New Relic
   license key has been defined::
