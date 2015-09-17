@@ -2,6 +2,11 @@ Margarita
 
 Changes - always add to the top.
 
+v 1.0.9 on Sep 17, 2015
+-----------------------
+
+* Symlink lessc to /usr/bin where gunicorn can find it (#76)
+
 v 1.0.8 on Sep 4, 2015
 ----------------------
 
