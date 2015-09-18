@@ -82,7 +82,7 @@ newrelic_es_plugin_fetch:
   cmd.run:
     - name: ./npi fetch {{ plugin }} --yes
     - cwd: /usr/share/npi
-    - creates: /usr/share/plugins/{{ plugin }}
+    - creates: /usr/share/npi/plugins/{{ plugin }}
     - require:
       - cmd: configure_npi
 
