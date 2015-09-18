@@ -2,6 +2,11 @@ Margarita
 
 Changes - always add to the top.
 
+v 1.0.10 on Sep 18, 2015
+------------------------
+
+* Add support for monitoring Elasticsearch with New Relic
+
 v 1.0.9 on Sep 17, 2015
 -----------------------
 
