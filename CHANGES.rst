@@ -5,6 +5,13 @@ Changes - always add to the top.
 UNRELEASED
 ----------
 
+* Remove duplicate specification of env vars (#65)
+
+  Upgrade Note: You must have installed and configured dotenv before upgrading
+  your project repo to use this version of Margarita. See
+  https://github.com/caktus/django-project-template/pull/208 for examples on
+  code that you need to add for wsgi and celery processes.
+
 * Set env var ``DOMAIN`` to contain the site's domain (from the Pillar). Remove
   the env var ``ALLOWED_HOSTS`` which was previously holding that information.
 

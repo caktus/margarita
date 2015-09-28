@@ -1,0 +1,6 @@
+DJANGO_SETTINGS_MODULE='{{ pillar["project_name"]}}.settings.deploy'
+DOMAIN='{{ pillar["domain"] }}'
+ENVIRONMENT='{{ pillar["environment"] }}'
+{% for key, value in pillar.get('secrets', {}).items() + pillar.get('env', {}).items() %}
+{{ key }}='{{ value }}'
+{% endfor %}

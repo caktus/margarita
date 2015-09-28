@@ -63,3 +63,15 @@ delete_pyc:
     - user: {{ pillar['project_name'] }}
     - require:
         - file: project_repo
+
+# Now that we have a repo, we can set up our .env inside it
+dotenv:
+  file.managed:
+    - name: {{ vars.build_path(vars.source_dir, ".env") }}
+    - source: salt://project/dotenv
+    - user: {{ pillar['project_name'] }}
+    - group: {{ pillar['project_name'] }}
+    - mode: 700
+    - template: jinja
+    - require:
+      - file: project_repo
