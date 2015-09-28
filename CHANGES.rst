@@ -18,6 +18,21 @@ UNRELEASED
 
     ALLOWED_HOSTS = [os.environ['DOMAIN']]
 
+v 1.0.11 on Sep 18, 2015
+------------------------
+
+* Fix for New Relic Elasticsearch monitoring
+
+v 1.0.10 on Sep 18, 2015
+------------------------
+
+* Add support for monitoring Elasticsearch with New Relic
+
+v 1.0.9 on Sep 17, 2015
+-----------------------
+
+* Symlink lessc to /usr/bin where gunicorn can find it (#76)
+
 v 1.0.8 on Sep 4, 2015
 ----------------------
 
