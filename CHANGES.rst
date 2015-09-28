@@ -2,8 +2,8 @@ Margarita
 
 Changes - always add to the top.
 
-v 1.0.12 on Sep 28, 2015
-------------------------
+v 1.1.0 on Sep 28, 2015
+-----------------------
 
 * Remove duplicate specification of env vars (#65)
 
@@ -24,6 +24,8 @@ v 1.0.12 on Sep 28, 2015
   should be changed to::
 
     ALLOWED_HOSTS = [os.environ['DOMAIN']]
+
+
 
 v 1.0.11 on Sep 18, 2015
 ------------------------
