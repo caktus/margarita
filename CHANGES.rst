@@ -2,8 +2,8 @@ Margarita
 
 Changes - always add to the top.
 
-UNRELEASED
-----------
+v 1.0.12 on Sep 28, 2015
+------------------------
 
 * Remove duplicate specification of env vars (#65)
 
