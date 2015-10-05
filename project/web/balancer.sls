@@ -1,6 +1,7 @@
 {% import 'project/_vars.sls' as vars with context %}
 {% set auth_file=vars.auth_file %}
 {% set self_signed='ssl_key' not in pillar or 'ssl_cert' not in pillar %}
+{% set dhparams_file = vars.build_path(vars.ssl_dir, 'dhparams.pem') %}
 
 include:
   - nginx
@@ -108,6 +109,11 @@ auth_file:
       - service: nginx
 {% endif %}
 
+dhparams_file:
+  cmd.run:
+    - name: openssl dhparam -out {{ dhparams_file }} {{ pillar.get('DH_KEY_LENGTH', 2048) }}
+    - unless: test -f {{ dhparams_file }}
+
 nginx_conf:
   file.managed:
     - name: /etc/nginx/sites-enabled/{{ pillar['project_name'] }}.conf
@@ -120,6 +126,7 @@ nginx_conf:
         public_root: "{{ vars.public_dir }}"
         log_dir: "{{ vars.log_dir }}"
         ssl_dir: "{{ vars.ssl_dir }}"
+        dhparams_file: "{{ dhparams_file }}"
         servers:
 {% for host, ifaces in vars.web_minions.items() %}
 {% set host_addr = vars.get_primary_ip(ifaces) %}
@@ -132,6 +139,7 @@ nginx_conf:
       - pkg: nginx
       - file: log_dir
       - file: ssl_dir
+      - cmd: dhparams_file
       {%- if self_signed %}
       - cmd: ssl_cert
       {% else %}
