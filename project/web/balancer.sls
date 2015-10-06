@@ -111,7 +111,7 @@ auth_file:
 
 dhparams_file:
   cmd.run:
-    - name: openssl dhparam -out {{ dhparams_file }} {{ pillar.get('DH_KEY_LENGTH', 2048) }}
+    - name: openssl dhparam -out {{ dhparams_file }} {{ pillar.get('dhparam_numbits', 2048) }}
     - unless: test -f {{ dhparams_file }}
 
 nginx_conf:
