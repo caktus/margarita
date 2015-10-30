@@ -75,3 +75,14 @@ dotenv:
     - template: jinja
     - require:
       - file: project_repo
+
+# Add a helper script for running any command with the env already loaded
+dotenv.sh:
+  file.managed:
+    - name: {{ vars.build_path(vars.source_dir, "dotenv.sh") }}
+    - source: salt://project/dotenv.sh
+    - user: {{ pillar['project_name'] }}
+    - group: {{ pillar['project_name'] }}
+    - mode: 700
+    - require:
+      - file: project_repo
