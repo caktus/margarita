@@ -2,6 +2,13 @@ Margarita
 
 Changes - always add to the top.
 
+v 1.1.1 on Nov 2, 2015
+----------------------
+
+* Add `statsd` state to install statsd on a server. (#83)
+* Fix for newrelic sysmon not picking up environment from dotenv. (#81, #82)
+* Use strong DH group (#62, #79)
+
 v 1.1.0 on Sep 28, 2015
 -----------------------
 
