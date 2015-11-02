@@ -1,13 +1,17 @@
 # Install statsd and provide basic default configuration
 # See: https://www.digitalocean.com/community/tutorials/how-to-configure-statsd-to-collect-arbitrary-stats-for-graphite-on-ubuntu-14-04
+include:
+  - nodejs
+  - version-control
+
 statsd_prereqs:
   pkg.latest:
     - pkgs:
-        - git
-        - nodejs
         - devscripts
         - debhelper
-        - npm
+    - require:
+      - pkg: node-pkgs
+      - pkg: git-core
 
 install_statsd:
   cmd.script:

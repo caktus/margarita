@@ -7,6 +7,7 @@ include:
   - project.django
   - postfix
   - ufw
+  - nodejs
 
 gunicorn_requirements:
   pip.installed:
@@ -55,13 +56,6 @@ app_allow-{{ host_addr }}:
     - require:
       - pkg: ufw
 {% endfor %}
-
-node-pkgs:
-  pkg:
-    - installed
-    - names:
-      - npm
-      - nodejs-legacy
 
 less:
   cmd.run:
