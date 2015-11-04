@@ -203,3 +203,16 @@ To enable New Relic monitoring for an environment:
         - newrelic_sysmon
 
 * Be sure ``newrelic`` is in the Python requirements of the project.
+
+
+States
+------
+
+papertrail
+~~~~~~~~~~
+
+Including this state forwards all syslog messages to papertrail. Requires
+two secrets:
+
+    PAPERTRAIL_HOST
+    PAPERTRAIL_PORT
