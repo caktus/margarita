@@ -7,6 +7,7 @@ include:
   - project.django
   - postfix
   - ufw
+  - nodejs
 
 gunicorn_requirements:
   pip.installed:
@@ -56,13 +57,6 @@ app_allow-{{ host_addr }}:
       - pkg: ufw
 {% endfor %}
 
-node-pkgs:
-  pkg:
-    - installed
-    - names:
-      - npm
-      - nodejs-legacy
-
 less:
   cmd.run:
     - name: npm install less@{{ pillar['less_version'] }} -g
@@ -70,6 +64,12 @@ less:
     - unless: "which lessc && lessc --version | grep {{ pillar['less_version'] }}"
     - require:
       - pkg: node-pkgs
+  file.symlink:
+    - name: /usr/bin/lessc
+    - target: /usr/local/bin/lessc
+    - user: root
+    - require:
+      - cmd: less
 
 collectstatic:
   cmd.run:

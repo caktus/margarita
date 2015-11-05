@@ -2,6 +2,53 @@ Margarita
 
 Changes - always add to the top.
 
+v 1.1.1 on Nov 2, 2015
+----------------------
+
+* Add `statsd` state to install statsd on a server. (#83)
+* Fix for newrelic sysmon not picking up environment from dotenv. (#81, #82)
+* Use strong DH group (#62, #79)
+
+v 1.1.0 on Sep 28, 2015
+-----------------------
+
+* Remove duplicate specification of env vars (#65)
+
+  Upgrade Note: You must have installed and configured dotenv before upgrading
+  your project repo to use this version of Margarita. See
+  https://github.com/caktus/django-project-template/pull/208 for examples on
+  code that you need to add for wsgi and celery processes.
+
+* Set env var ``DOMAIN`` to contain the site's domain (from the Pillar). Remove
+  the env var ``ALLOWED_HOSTS`` which was previously holding that information.
+
+  Deprecation Note: Change any references to the ``ALLOWED_HOSTS`` env var to
+  instead be ``DOMAIN``. The most likely location where this is being used is
+  in the Django settings::
+
+    ALLOWED_HOSTS = os.environ['ALLOWED_HOSTS'].split(';')
+
+  should be changed to::
+
+    ALLOWED_HOSTS = [os.environ['DOMAIN']]
+
+
+
+v 1.0.11 on Sep 18, 2015
+------------------------
+
+* Fix for New Relic Elasticsearch monitoring
+
+v 1.0.10 on Sep 18, 2015
+------------------------
+
+* Add support for monitoring Elasticsearch with New Relic
+
+v 1.0.9 on Sep 17, 2015
+-----------------------
+
+* Symlink lessc to /usr/bin where gunicorn can find it (#76)
+
 v 1.0.8 on Sep 4, 2015
 ----------------------
 

@@ -14,7 +14,6 @@ manage:
     - mode: 700
     - template: jinja
     - context:
-        settings: "{{ pillar['project_name']}}.settings.deploy"
         virtualenv_root: "{{ vars.venv_dir }}"
         directory: "{{ vars.source_dir }}"
     - require:
