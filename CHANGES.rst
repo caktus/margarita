@@ -2,6 +2,19 @@ Margarita
 
 Changes - always add to the top.
 
+v next
+------
+
+* The default configuration for Postgres, Nginx, and Supervisor is now to send
+  logs to syslog, not files.
+
+  Upgrade note: be aware that output won't be going to the old log files anymore
+  after installing this update.  But you can use papertrail to follow the logs
+  more easily than before; see the next item.
+
+* Optional papertrail state can forward syslog to https://papertrailapp.com/.
+  See README.rst.
+
 v 1.1.1 on Nov 2, 2015
 ----------------------
 
