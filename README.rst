@@ -211,8 +211,5 @@ States
 papertrail
 ~~~~~~~~~~
 
-Including this state forwards all syslog messages to papertrail. Requires
-two secrets:
-
-    PAPERTRAIL_HOST
-    PAPERTRAIL_PORT
+Including this state for a host (in ``top.sls``) forwards all syslog messages to papertrail.
+It requires a ``PAPERTRAIL_ADDRESS`` secret which should have the format `<hostname>:<port>`.

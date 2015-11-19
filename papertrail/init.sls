@@ -4,8 +4,7 @@ send_logs_to_papertrail:
     - source: salt://papertrail/papertrail.conf
     - template: jinja
     - context:
-        PAPERTRAIL_HOST: {{ pillar['secrets']['PAPERTRAIL_HOST'] }}
-        PAPERTRAIL_PORT: {{ pillar['secrets']['PAPERTRAIL_PORT'] }}
+        PAPERTRAIL_ADDRESS: {{ pillar['secrets']['PAPERTRAIL_ADDRESS'] }}
 
 restart_syslog_for_papertrail:
   cmd.run:
