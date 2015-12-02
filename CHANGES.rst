@@ -2,6 +2,19 @@ Margarita
 
 Changes - always add to the top.
 
+v 1.2.0 on Dec 2, 2015
+----------------------
+
+* Send Nginx, Postgres, and Supervisor logs to syslog instead of
+  log files. (#61, #74)
+
+  After upgrading, your local log files from these services won't
+  receive any more updates. Look in e.g. ``/var/log/syslog`` instead.
+
+* New state that can be used to forward log messages to a remote
+  log server. (#85)
+* Fix elasticsearch config to not form ad-hoc clusters. (#86)
+
 v 1.1.1 on Nov 2, 2015
 ----------------------
 
