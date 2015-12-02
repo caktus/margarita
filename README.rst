@@ -203,3 +203,13 @@ To enable New Relic monitoring for an environment:
         - newrelic_sysmon
 
 * Be sure ``newrelic`` is in the Python requirements of the project.
+
+
+States
+------
+
+forward_logs
+~~~~~~~~~~~~
+
+Including this state for a host (in ``top.sls``) forwards all syslog messages to another
+system.  It requires a ``LOG_DESTINATION`` secret which should have the format `<hostname>:<port>`.
