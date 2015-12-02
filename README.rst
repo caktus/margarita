@@ -208,8 +208,8 @@ To enable New Relic monitoring for an environment:
 States
 ------
 
-papertrail
-~~~~~~~~~~
+forward_logs
+~~~~~~~~~~~~
 
-Including this state for a host (in ``top.sls``) forwards all syslog messages to papertrail.
-It requires a ``PAPERTRAIL_ADDRESS`` secret which should have the format `<hostname>:<port>`.
+Including this state for a host (in ``top.sls``) forwards all syslog messages to another
+system.  It requires a ``LOG_DESTINATION`` secret which should have the format `<hostname>:<port>`.
