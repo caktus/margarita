@@ -15,6 +15,6 @@ load_imfile:
 
 restart_rsyslog_if_imfile_added:
   cmd.run:
-    - name: service rsyslog restart
+    - name: restart rsyslog
     - onchanges:
        - file: load_imfile
