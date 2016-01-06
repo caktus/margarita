@@ -2,20 +2,21 @@
 # See "man 8 unattended-upgrade" and read /usr/share/doc/unattended-upgrades/README.md
 # on Ubuntu.  "man 5 apt.conf" might also be useful.
 #
+# We copy the logging into syslog with the tag 'unattended' and facility 'local7'.
 
-# TODO: forward logs to papertrail or syslog.
-# Logging is to /var/log/unattended-upgrades/*.log and does not appear
-# to be configurable.  I don't see any logging from apt or dpkg showing
-# up in syslog either.
+include:
+  - syslog
 
 #
 # CONFIGURATION:
 #
 # Required: In pillar, create a variable 'admin_email'
 # with the email address where updates and problems should be emailed.
-# TODO: once logs are getting to Papertrail, we'll be able to remove
-# the email notices and instead set up alerts in Papertrail.
-#
+
+# TODO: Come up with good search patterns for Papertrail to alert
+# us when there's an issue with unattended upgrades.
+# Once that's done, we'll be able to turn off the email notices.
+
 # Optional: In pillar, create a list `unattended_upgrade_blacklist` of package
 # names or regexes not to ever upgrade during unattended upgrades.
 # You don't have to include "salt-.*" because we always add that to
@@ -47,3 +48,16 @@ install_50unattended_upgrades_file:
     - user: root
     - group: root
     - mode: 644
+
+# Tell rsyslog to monitor the log files and make log entries from them
+log_unattended_upgrades:
+  file.managed:
+    - name: /etc/rsyslog.d/unattended_upgrades.conf
+    - source: salt://unattended_upgrades/rsyslog_unattended.conf
+
+restart_syslog_for_log_unattended_upgrades:
+  cmd.run:
+    - name: restart rsyslog
+    - onchanges:
+        - file: log_unattended_upgrades
+
