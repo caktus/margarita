@@ -2,6 +2,19 @@ Margarita
 
 Changes - always add to the top.
 
+v 1.3.0 on Jan 6, 2016
+----------------------
+
+* Add state `unattended_upgrades` that will run unattended security upgrades
+  automatically. See the top of `unattended_upgrades/init.sls` for configuration,
+  then add to the base states in your `top.sls` to enable. (#92, #93)
+  Results will go to syslog. For now, they'll also be emailed, but we plan
+  to remove that once we are confident we have good queries for upgrade
+  problems in the logs.
+
+* Install a more recent Erlang than Ubuntu 12.04 has, that is required
+  by the latest rabbitmq server.  (#89, #90).
+
 v 1.2.0 on Dec 2, 2015
 ----------------------
 
