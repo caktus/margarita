@@ -34,7 +34,7 @@ install_20auto_upgrades_file:
     - source: salt://unattended_upgrades/20auto-upgrades
     - user: root
     - group: root
-    - mode: 444
+    - mode: 644
 
 install_50unattended_upgrades_file:
   file.managed:
@@ -46,4 +46,4 @@ install_50unattended_upgrades_file:
         upgrade_blacklist: {{ pillar.get('unattended_upgrade_blacklist', []) }}
     - user: root
     - group: root
-    - mode: 444
+    - mode: 644
