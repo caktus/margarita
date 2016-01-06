@@ -1,3 +1,6 @@
+include:
+  - syslog
+
 send_logs_to_remote_log_server:
   file.managed:
     - name: /etc/rsyslog.d/remote_log_server.conf
