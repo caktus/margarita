@@ -12,14 +12,14 @@ nodejs_repo:
     - require_in:
       - pkg: nodejs
 
+# We should use Salt's 'pkg.removed' here, but it has a long-standing bug:
+# The state fails if the package isn't installed to begin with.  Sigh.
 remove_nodejs_legacy:
-  pkg.removed:
-    - pkgs:
-       - npm
-       - nodejs-legacy
+  cmd.run:
+    - name: apt-get remove npm nodejs-legacy -y
 
 nodejs:
   pkg.latest:
     - name: nodejs
     - require:
-      - pkg: remove_nodejs_legacy
+      - cmd: remove_nodejs_legacy
