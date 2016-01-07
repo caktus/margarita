@@ -13,5 +13,8 @@ nodejs_repo:
       - pkg: nodejs
 
 nodejs:
+  pkg.removed:
+    - name: npm
+    - name: nodejs-legacy
   pkg.latest:
     - name: nodejs
