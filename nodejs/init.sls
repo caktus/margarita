@@ -12,9 +12,13 @@ nodejs_repo:
     - require_in:
       - pkg: nodejs
 
-nodejs:
+remove_nodejs_legacy:
   pkg.removed:
     - name: npm
     - name: nodejs-legacy
+  required_in:
+    - pkg: nodejs
+
+nodejs:
   pkg.latest:
     - name: nodejs
