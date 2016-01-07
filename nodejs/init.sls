@@ -14,9 +14,9 @@ nodejs_repo:
 
 remove_nodejs_legacy:
   pkg.removed:
-    - names:
-      - npm
-      - nodejs-legacy
+    - pkgs:
+       - npm
+       - nodejs-legacy
 
 nodejs:
   pkg.latest:
