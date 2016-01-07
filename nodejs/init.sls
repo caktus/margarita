@@ -14,11 +14,12 @@ nodejs_repo:
 
 remove_nodejs_legacy:
   pkg.removed:
-    - name: npm
-    - name: nodejs-legacy
-  required_in:
-    - pkg: nodejs
+    - names:
+      - npm
+      - nodejs-legacy
 
 nodejs:
   pkg.latest:
     - name: nodejs
+    - require:
+      - pkg: remove_nodejs_legacy
