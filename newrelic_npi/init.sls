@@ -4,6 +4,7 @@
 {% set url = "https://download.newrelic.com/npi/v" + version + "/" + tarball %}
 {% set hash = "sha512=92aaec9ae56abb05bce3663150eddb01425ec8718f17e987a1e7f7c812a3e3fc3a7a217944413f857a5e5ec98b66d7ab6927db9bb981b6f98eee1c860c3c3306" %}
 
+{% if pillar['secrets'].get('NEW_RELIC_LICENSE_KEY') %}
 install_npi:
   archive.extracted:
     - name: /usr/share/npi
@@ -17,3 +18,4 @@ configure_npi:
   cmd.run:
     - name: ./npi set license_key {{ pillar['secrets']['NEW_RELIC_LICENSE_KEY'] }} && ./npi set user {{ pillar['project_name'] }} && ./npi set distro debian
     - cwd: /usr/share/npi
+{% endif %}
