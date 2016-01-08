@@ -17,6 +17,30 @@ v 1.4.0 on Jan 8, 2016
   expected to run any frontend build process required before
   collectstatic can be run.
 
+Upgrade notes from 1.3.0:
+
+In order to upgrade to Margarita 1.4.0 you will need a package.json in
+your project. For gulpified projects this is where you define frontend
+packages and your frontend build process. For legacy projects, you may
+move to 1.4.0 by including the following package.json as a placeholder::
+
+  {
+    "name": "",
+    "version": "0.0.0",
+    "description": "",
+    "main": "",
+    "engines" : {
+      "node" : ">=4.2 <4.3"
+    },
+    "scripts": {
+      "build": "true",
+    },
+    "author": "",
+    "license": "",
+    "dependencies": {},
+    "devDependencies": {}
+  }
+
 v 1.3.0 on Jan 6, 2016
 ----------------------
 
