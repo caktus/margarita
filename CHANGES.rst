@@ -33,7 +33,7 @@ move to 1.4.0 by including the following package.json as a placeholder::
       "node" : ">=4.2 <4.3"
     },
     "scripts": {
-      "build": "true",
+      "build": "true"
     },
     "author": "",
     "license": "",
