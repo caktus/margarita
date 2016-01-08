@@ -5,6 +5,43 @@ This repository holds a collection of states and modules for deployments using
 `SaltStack <http://saltstack.com/>`_. These exist primarily to support the
 `Caktus Django project template <https://github.com/caktus/django-project-template>`_.
 
+Installing
+--------------------------------------
+
+(This assumes you're using Fabric.)
+
+* Identify the virtual environment that Fabric is running in.  Note that
+  if your project is using Python 3, then Fabric must be using a different
+  virtual environment than your project, since Fabric doesn't work with
+  Python 3.
+
+* Add a pinned version of Margarita to that environment's requirements file
+  and pip install from that into Fabric's virtual environment.
+
+  E.g. add this to your requirements file::
+
+    git+https://github.com/caktus/margarita.git@1.3.0
+
+* If you're using Fabric to deploy, margarita provides a function you
+  can call to sync Margarita somewhere on the target system::
+
+    from margarita.fabric import sync_margarita_to_server
+
+    sync_margarita_to_server("/srv/margarita")
+
+* Otherwise, find the path to the installed margarita directory like this::
+
+    from margarita import get_margarita_directory
+
+    dir = get_margarita_directory()
+
+  and you can use that however you want.
+
+* If you're working on Margarita, you can install it as editable using
+  ``pip -e``, or put it anywhere convenient and then, after
+  activating your Fabric virtualenv, run
+  ``python path/to/margarita/setup.py develop``, which will add the Margarita
+  in your development directory to the Python path in your virtualenv.
 
 License
 --------------------------------------
