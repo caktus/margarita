@@ -2,6 +2,21 @@ Margarita
 
 Changes - always add to the top.
 
+v 1.4.0 on Jan 8, 2016
+----------------------
+
+* Ensure official Ubuntu npm and nodejs-legacy packages are removed
+
+* Configure a third party PPA as source for NodeJS 4.2 (includes NPM)
+
+* Adds npm_installs state which runs before collectstatic to install
+  and update NPM packages
+
+* Adds npm_run_build state which runs after npm_installs and runs a
+  configured npm script in the project's package.json named "build",
+  expected to run any frontend build process required before
+  collectstatic can be run.
+
 v 1.3.0 on Jan 6, 2016
 ----------------------
 
