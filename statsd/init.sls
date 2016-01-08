@@ -10,7 +10,7 @@ statsd_prereqs:
         - devscripts
         - debhelper
     - require:
-      - pkg: node-pkgs
+      - pkg: nodejs
       - pkg: git-core
 
 install_statsd:

@@ -63,7 +63,7 @@ less:
     - user: root
     - unless: "which lessc && lessc --version | grep {{ pillar['less_version'] }}"
     - require:
-      - pkg: node-pkgs
+      - pkg: nodejs
   file.symlink:
     - name: /usr/bin/lessc
     - target: /usr/local/bin/lessc
