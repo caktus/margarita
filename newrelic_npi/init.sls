@@ -1,4 +1,7 @@
 # Install New Relic Platform Installer under /usr/share/npi
+{% import 'project/_vars.sls' as vars with context %}
+
+{% if vars.use_newrelic %}
 {% set version = "0.1.5" %}
 {% set tarball = "platform_installer-linux-x64-v" + version + ".tar.gz" %}
 {% set url = "https://download.newrelic.com/npi/v" + version + "/" + tarball %}
@@ -17,3 +20,4 @@ configure_npi:
   cmd.run:
     - name: ./npi set license_key {{ pillar['secrets']['NEW_RELIC_LICENSE_KEY'] }} && ./npi set user {{ pillar['project_name'] }} && ./npi set distro debian
     - cwd: /usr/share/npi
+{% endif %}
