@@ -10,7 +10,6 @@ erlang:
       - pkg: erlang-nox
   pkg.latest:
     - name: erlang-nox
-    - refresh: true
     - require_in:
       - pkg: rabbitmq-server
 {% endif %}
@@ -23,7 +22,6 @@ rabbitmq-server:
       - pkg: rabbitmq-server
   pkg:
     - latest
-    - refresh: True
   service:
     - running
     - enable: True

@@ -8,7 +8,6 @@ nginx-ppa:
 nginx:
   pkg.latest:
     - name: nginx
-    - refresh: true
   service:
     - running
     - enable: True
