@@ -4,7 +4,6 @@ rsyslog:
     - ppa: adiscon/v8-stable
   pkg.latest:
     - name: rsyslog
-    - refresh: True
 
 # Load the imfile module so we can monitor plaintext log files
 load_imfile:

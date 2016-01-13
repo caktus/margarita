@@ -14,7 +14,6 @@ newrelic_repo:
 newrelic_sysmon_pkg:
   pkg.latest:
     - name: newrelic-sysmond
-    - refresh: true
 # Note: according to the docs, `require`ing a pkgrepo from a pkg does
 # not work, you have to `require_in` the pkg from the pkgrepo.
 
