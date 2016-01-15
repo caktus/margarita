@@ -2,6 +2,18 @@ Margarita
 
 Changes - always add to the top.
 
+v 1.5.0 on Jan 15, 2016
+-----------------------
+
+* Added a state (``watchlog``) that allows you to forward any plain text log to syslog.
+
+* Don't run ``apt-get update`` on every package install, speeding up deploys.
+
+* Don't install NewRelic plugin unless we have a NewRelic key.
+
+* Fix NPM state and include it so that salt runs it.
+
+
 v 1.4.0 on Jan 8, 2016
 ----------------------
 
@@ -18,6 +30,9 @@ v 1.4.0 on Jan 8, 2016
   collectstatic can be run.
 
 Upgrade notes from 1.3.0:
+
+.. WARNING:: Do not use 1.4.0. Follow these instructions, but use 1.5.0 to get
+             a critical bugfix.
 
 In order to upgrade to Margarita 1.4.0 you will need a package.json in
 your project. For gulpified projects this is where you define frontend
