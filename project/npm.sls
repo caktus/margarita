@@ -1,3 +1,5 @@
+{% import 'project/_vars.sls' as vars with context %}
+
 npm_installs:
   cmd.run:
     - name: npm install; npm update
