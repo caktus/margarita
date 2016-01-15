@@ -8,6 +8,7 @@ include:
   - postfix
   - ufw
   - nodejs
+  - project.npm
 
 gunicorn_requirements:
   pip.installed:
@@ -78,6 +79,7 @@ collectstatic:
     - group: {{ pillar['project_name'] }}
     - require:
       - file: manage
+      - cmd: npm_run_build
 
 migrate:
   cmd.run:
