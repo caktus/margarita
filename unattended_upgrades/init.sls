@@ -51,13 +51,10 @@ install_50unattended_upgrades_file:
 
 # Tell rsyslog to monitor the log files and make log entries from them
 log_unattended_upgrades:
-  file.managed:
-    - name: /etc/rsyslog.d/unattended_upgrades.conf
-    - source: salt://unattended_upgrades/rsyslog_unattended.conf
-
-restart_syslog_for_log_unattended_upgrades:
-  cmd.run:
-    - name: restart rsyslog
-    - onchanges:
-        - file: log_unattended_upgrades
-
+  watchlog.file:
+    - name: unattended_upgrades
+    - path: /var/log/unattended-upgrades/*.log
+    - enable: true
+    - tag: "unattended"
+    - facility: local7
+    - severity: info
