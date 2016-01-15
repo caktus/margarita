@@ -45,7 +45,9 @@ def file(name, path, enable, tag, facility, severity, **kwargs):
 
     At least rsyslog v8 must be installed. The state checks for
     this and will return an error otherwise.  Also, the 'imfile'
-    rsyslog module must be loaded. The state checks for this too.
+    rsyslog module must be loaded. The state checks for this too
+    (at least, for the module loading syntax that the 'syslog'
+    state would have used to enable it).
 
     There's a Margarita state 'syslog' that will ensure both of
     those requirements are met; just make your state depend on
@@ -85,9 +87,13 @@ def file(name, path, enable, tag, facility, severity, **kwargs):
 
     # See if imfile appears to be enabled
     main_conf_file = open("/etc/rsyslog.conf", "r").read()
+    # This test is very simple, but good enough for now. Feel free to change to a
+    # regex or something if you need to change the PollingInterval or anything like that.
     text = 'module(load="imfile" PollingInterval="10")'
     if text not in main_conf_file:
-        ret['comment'] = "rsyslog needs to have imfile module loaded. Adding the 'syslog' state should do it."
+        ret['comment'] = "rsyslog needs to have imfile module loaded, and must use the exact " \
+                         "syntax '{}' because that's what this checks for. " \
+                         "Adding the 'syslog' state will do that.".format(text)
         return ret
 
     conf_file_path = os.path.join("/etc/rsyslog.d", "%s.conf" % name)
