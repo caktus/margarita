@@ -7,7 +7,6 @@ python-base-pkgs:
   pkg:
     - installed
     - names:
-      - python-pip
       - build-essential
 
 python-headers:
@@ -28,18 +27,17 @@ python-headers:
       - libxslt1-dev
       - ghostscript
 
-setuptools:
-  pip.installed:
-    - name: setuptools<8.0
-    - upgrade: True
-    - require:
-      - pkg: python-base-pkgs
-
 pip:
+  cmd.run:
+    - unless: test -x /usr/local/bin/pip
+    - name: |
+        cd /tmp
+        wget -c https://bootstrap.pypa.io/get-pip.py
+        python get-pip.py
+    - cwd: /tmp
+    - user: root
   pip.installed:
     - upgrade: True
-    - require:
-      - pip: setuptools
 
 virtualenv:
   pip.installed:

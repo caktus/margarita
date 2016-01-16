@@ -3,13 +3,13 @@ include:
 
 solr_install:
   cmd.script:
-    - cwd: /var/www/{{ pillar['project_name']}}-{{ pillar['environment']}}
+    - cwd: /var/www/{{ pillar['project_name']}}
     - name: salt://solr/solr-install.sh
     - user: {{ pillar['project_name'] }}
 
 solr_project_dir:
   file.directory:
-    - name: /var/www/{{ pillar['project_name']}}-{{ pillar['environment']}}/apache-solr-3.6.2/website
+    - name: /var/www/{{ pillar['project_name']}}/apache-solr-3.6.2/website
     - user: {{ pillar['project_name'] }}
     - group: admin
     - dir_mode: 775
@@ -23,8 +23,8 @@ solr_project_dir:
 
 solr_stop_words:
   file.symlink:
-    - target: /var/www/{{ pillar['project_name']}}-{{ pillar['environment']}}/apache-solr-3.6.2/website/solr/conf/lang/stopwords_en.txt
-    - name: /var/www/{{ pillar['project_name']}}-{{ pillar['environment']}}/apache-solr-3.6.2/website/solr/conf/stopwords_en.txt
+    - target: /var/www/{{ pillar['project_name']}}/apache-solr-3.6.2/website/solr/conf/lang/stopwords_en.txt
+    - name: /var/www/{{ pillar['project_name']}}/apache-solr-3.6.2/website/solr/conf/stopwords_en.txt
     - user: {{ pillar['project_name'] }}
     - group: admin
     - require:
