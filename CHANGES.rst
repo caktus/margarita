@@ -2,6 +2,19 @@ Margarita
 
 Changes - always add to the top.
 
+v 1.6.0 (Not yet released)
+--------------------------
+
+* Added ``python_backport`` as optional pillar to install Python 2.7.9+ from the
+  backport PPA https://launchpad.net/~fkrull/+archive/ubuntu/deadsnakes-python2.7.
+
+* Added ``python_headers`` as optional pillar variable for installing packages
+  required to build python dependencies.
+
+* Virtualenv will now be rebuilt if the Python version changes or new headers
+  are installed.
+
+
 v 1.5.0 on Jan 15, 2016
 -----------------------
 
