@@ -101,6 +101,17 @@ project_name
     and no spaces or punctuation other than underscore.
 python_version
     What version of Python the project uses, e.g. "2.7" or "3.4".
+python_backport
+    If using Python 2.7 then setting this to ``True`` will enable the Python 2.7.9+ backport
+    for network security enhancements. See https://www.python.org/dev/peps/pep-0466/
+python_headers
+    This is a list of additional header files which are required to install the virtualenv
+    dependencies. For example::
+
+    python_headers:
+      - libldap2-dev
+      - libsasl2-dev
+
 repo
     Where to get the project code.  ``url`` should be a URL in the format you'd use
     with ``git clone``, like ``git@github.com:CHANGEME/CHANGEME.git``

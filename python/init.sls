@@ -1,12 +1,24 @@
+{% set python_version = pillar.get('python_version', '2.7') ~ '' %}
+
 deadsnakes:
   pkgrepo.managed:
     - humanname: Deadsnakes PPA
     - ppa: fkrull/deadsnakes
+    - require_in:
+      - pkg: python-pkgs
+
+{% if python_version == '2.7' and pillar.get('python_backport') %}
+deadsnakes-python2.7:
+  pkgrepo.managed:
+    - humanname: Deadsnakes PPA for 2.7
+    - ppa: fkrull/deadsnakes-python2.7
+    - require_in:
+      - pkg: python-pkgs
+{% endif %}
 
 python-pkgs:
-  pkg:
-    - installed
-    - names:
+  pkg.installed:
+    - pkgs:
       - python-pip
       - build-essential
       - libpq-dev
@@ -22,10 +34,11 @@ python-pkgs:
       - libxml2-dev
       - libxslt1-dev
       - ghostscript
-      - python{{ pillar['python_version'] }}
-      - python{{ pillar['python_version'] }}-dev
-    - require:
-      - pkgrepo: deadsnakes
+      - python{{ python_version }}
+      - python{{ python_version }}-dev
+{% for name in pillar.get('python_headers', []) %}
+      - {{ name }}
+{% endfor %}
 
 setuptools:
   pip.installed:
