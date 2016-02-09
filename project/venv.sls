@@ -6,6 +6,10 @@ include:
   - python
 
 venv:
+  file.absent:
+    - name: {{ vars.venv_dir }}
+    - onchanges:
+      - pkg: python-pkgs
   virtualenv.managed:
     - name: {{ vars.venv_dir }}
     - python: {{ '/usr/bin/python' ~ pillar['python_version'] }}
@@ -14,6 +18,7 @@ venv:
       - pip: virtualenv
       - file: root_dir
       - file: project_repo
+      - file: venv
       - pkg: python-pkgs
 
 pip_requirements:
