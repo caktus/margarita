@@ -17,9 +17,8 @@ deadsnakes-python2.7:
 {% endif %}
 
 python-pkgs:
-  pkg:
-    - installed
-    - names:
+  pkg.installed:
+    - pkgs:
       - python-pip
       - build-essential
       - libpq-dev
