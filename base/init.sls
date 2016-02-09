@@ -1,7 +1,6 @@
 base-packages:
-  pkg:
-    - installed
-    - names:
+  pkg.installed:
+    - pkgs:
       - python-software-properties
       - dpkg-dev
       - wget
