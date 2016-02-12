@@ -1,12 +1,11 @@
 include:
   - locale.utf8
 
-{% set pg_version = salt['pillar.get']('postgres_version', '9.1') %}
+{% set pg_version = salt['pillar.get']('postgres_version', '9.3') %}
 
 db-packages:
-  pkg:
-    - installed
-    - names:
+  pkg.installed:
+    - pkgs:
       - postgresql-contrib-{{ pg_version }}
       - postgresql-server-dev-{{ pg_version }}
       - postgresql-client-{{ pg_version }}
@@ -30,32 +29,3 @@ postgresql:
     - enable: True
   require:
     - pkg: no_meta_postgresql
-
-{% if pg_version|float < 9.3 %}
-# With Postgres 9.3, the default DB cluster is UTF-8 so we don't need all this mess.
-# Don't know if any older versions of PG are the same, but older versions of the
-# django-project-template will definitely be requiring this file, so keep it in place
-# as a no-op script, for now.
-/var/lib/postgresql/configure_utf-8.sh:
-  cmd.wait:
-    - name: bash /var/lib/postgresql/configure_utf-8.sh
-    - user: postgres
-    - cwd: /var/lib/postgresql
-    - unless: psql -U postgres template1 -c 'SHOW SERVER_ENCODING' | grep "UTF8"
-    - require:
-      - file: /etc/default/locale
-    - watch:
-      - file: /var/lib/postgresql/configure_utf-8.sh
-
-  file.managed:
-    - name: /var/lib/postgresql/configure_utf-8.sh
-    - source: salt://postgresql/default-locale.sh
-    - template: jinja
-    - context:
-        version: {{ pg_version }}
-    - user: postgres
-    - group: postgres
-    - mode: 755
-    - require:
-      - pkg: postgresql
-{% endif %}

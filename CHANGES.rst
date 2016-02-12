@@ -14,6 +14,14 @@ v 1.6.0 (Not yet released)
 * Virtualenv will now be rebuilt if the Python version changes or new headers
   are installed.
 
+* Updated ``base`` and ``postgresql`` states to install the list of packages in
+  a single command.
+
+* The default ``postgres_version`` has been updated to 9.3. 
+
+* The fallback for resetting the locale to UTF-8 has been removed.
+  This was deprecated in v1.0.3.
+
 
 v 1.5.0 on Jan 15, 2016
 -----------------------
