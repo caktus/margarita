@@ -33,14 +33,14 @@ include:
 {% endfor %}
 {% endif %}
 
+{% if 'users' in pillar and pillar['users'] %}
 purge_users:
   cmd.script:
     - cwd: /var/www/{{ pillar['project_name']}}-{{ pillar['environment']}}
-    - name: salt://users/purge-users.py
+    - name: salt://users/purge-users.py {% for user in pillar['users'] %}--keep={{ user }} {% endfor %}
     - user: root
     - require:
-{% if 'users' in pillar and pillar['users'] %}
-{% for user, args in pillar['users'].iteritems() %}
+{% for user in pillar['users'] %}
       - user: {{ user }}
 {% endfor %}
 {% endif %}

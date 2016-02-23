@@ -5,16 +5,9 @@ import sys
 import re
 import os
 from subprocess import check_output
+import optparse
 
 import yaml
-
-
-def read_devs():
-    output = check_output(["/usr/bin/salt-call", "pillar.get", "users"])
-    lines = [l for l in output.split('\n') if not re.match(r'^[- ]+$', l)]
-    yaml_data = '\n'.join(lines)
-    data = yaml.load(yaml_data)
-    return data['local']
 
 def list_users():
     users = check_output("cut -d: -f1 /etc/passwd", shell=True).split('\n')
@@ -29,12 +22,15 @@ def get_authorized_keys_filepath(username):
     return os.path.exists(os.path.join('/', 'home', username, '.ssh', 'authorized_keys'))
 
 def main():
-    devs = read_devs()
+    parser = optparse.OptionParser()
+    parser.add_option('', '--keep', dest="keep_users", action="append")
+    (options, args) = parser.parse_args()
+
     users_to_drop = []
     for username in list_users():
         authorized_keys = get_authorized_keys_filepath(username)
         if authorized_keys:
-            if username not in devs:
+            if username not in keep_users:
                 users_to_drop.append(username)
     existing_devs = list_devs()
     if not set(existing_devs) - set(users_to_drop):
