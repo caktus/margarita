@@ -10,12 +10,11 @@ import yaml
 
 
 def read_devs():
-    output = check_output(["/usr/bin/salt", "*", "pillar.get", "users"])
+    output = check_output(["/usr/bin/salt-call", "pillar.get", "users"])
     lines = [l for l in output.split('\n') if not re.match(r'^[- ]+$', l)]
     yaml_data = '\n'.join(lines)
     data = yaml.load(yaml_data)
-    host = data.keys()[0]
-    return data[host]
+    return data['local']
 
 def list_users():
     users = check_output("cut -d: -f1 /etc/passwd", shell=True).split('\n')
@@ -41,6 +40,9 @@ def main():
     if not set(existing_devs) - set(users_to_drop):
         print("Error: refusing to remove all accounts")
         sys.exit(1)
+    else:
+        for username in users_to_drop:
+            os.unlink(get_authorized_keys_filepath(username))
 
 if __name__ == '__main__':
     main()
