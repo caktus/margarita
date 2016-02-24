@@ -30,7 +30,7 @@ def main():
         parser.error("At least one --keep option required. Refusing to purge ALL developers.")
 
     existing_devs = list_devs()
-    users_to_drop = [user for user in existing_devs if user not in options.keep_users]
+    users_to_drop = [user for user in existing_devs if user.pw_name not in options.keep_users]
     if len(existing_devs) == len(users_to_drop):
         print("Error: refusing to remove all accounts: %s" % ", ".join(u.pw_name for u in users_to_drop))
         sys.exit(1)
