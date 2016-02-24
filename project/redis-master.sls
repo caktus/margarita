@@ -1,6 +1,5 @@
-# Install Redis, listening on all interfaces.
-# This does not open the firewall for Redis, so do that elsewhere
-# if you need access to the Redis server from other systems.
+# Install Redis, listening only on localhost.
+# (Default is to listen on all interfaces.)
 redis-server:
     pkg.installed:
       - name: redis-server
@@ -9,9 +8,8 @@ redis-server:
       - enable: True
       - require:
         - pkg: redis-server
-    file.replace:
+    file.append:
       - name: /etc/redis/redis.conf
-      - pattern: "^bind 127.0.0.1"
-      - repl: "# bind 127.0.0.1"
+      - text: "bind 127.0.0.1"
       - require:
         - pkg: redis-server
