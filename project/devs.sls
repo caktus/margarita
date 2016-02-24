@@ -37,7 +37,8 @@ include:
 purge_users:
   cmd.script:
     - cwd: /var/www/{{ pillar['project_name']}}
-    - name: salt://users/purge-users.py {% for user in pillar['users'] %}--keep={{ user }} {% endfor %}
+    - name: salt://users/purge-users.py
+    - args: {% for user in pillar['users'] %}--keep={{ user }} {% endfor %}
     - user: root
     - require:
 {% for user in pillar['users'] %}
