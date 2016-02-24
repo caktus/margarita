@@ -31,7 +31,7 @@ since we started applying version numbers.  The version number in the top
 entry is the version of Margarita that you're looking at; it's not stored
 anywhere else for now.
 
-NOTE: We try never to update the master branch of this repo to avoid causing unexpected upgrade
+NOTE: We never update the master branch of this repo to avoid causing unexpected upgrade
 problems for older projects which are tracking the master branch.
 
 To make a new release:
@@ -42,7 +42,7 @@ To make a new release:
     git checkout develop
     git pull origin develop
 
-* Pick a new version number, attempting to follow the guidelines of `Sematic Versioning
+* Pick a new version number, attempting to follow the guidelines of `Semantic Versioning
   <http://semver.org/>`_.
 * Edit CHANGES.rst with the new version number and the changes since the last
   release. Pay special attention to documenting any changes that could break
@@ -57,8 +57,8 @@ To make a new release:
     git push origin develop --tags
 
 * If this release is ready to be used by new projects based on our `project
-  template <https://github.com/caktus/django-project-template>`_, then be sure
-  to update ``margarita_version`` to your new version in `project.sls
+  template <https://github.com/caktus/django-project-template>`_, then update ``margarita_version``
+  to this new version in `project.sls
   <https://github.com/caktus/django-project-template/blob/master/conf/pillar/project.sls#L10>`_
 
 
