@@ -31,12 +31,12 @@ def main():
 
     existing_devs = list_devs()
     users_to_drop = [user for user in existing_devs if user not in options.keep_users]
-    if not set(existing_devs) - set(users_to_drop):
-        print("Error: refusing to remove all accounts: %s" % ", ".join(users_to_drop))
+    if len(existing_devs) == len(users_to_drop):
+        print("Error: refusing to remove all accounts: %s" % ", ".join(u.pw_name for u in users_to_drop))
         sys.exit(1)
     else:
-        for username in users_to_drop:
-            os.unlink(get_authorized_keys_filepath(username))
+        for user in users_to_drop:
+            os.unlink(get_authorized_keys_filepath(user))
 
 if __name__ == '__main__':
     main()
