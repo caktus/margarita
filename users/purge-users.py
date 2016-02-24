@@ -21,7 +21,7 @@ def list_devs():
 
 def get_authorized_keys_filepath(user):
     home_dir = user.pw_dir
-    path = os.path.join(home_dir, '.ssh', 'authorized_keys'))
+    path = os.path.join(home_dir, '.ssh', 'authorized_keys')
     if os.path.exists(path):
         return path
 
