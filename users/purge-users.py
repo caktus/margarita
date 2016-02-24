@@ -10,6 +10,10 @@ import optparse
 
 import yaml
 
+parser = optparse.OptionParser()
+parser.add_option('', '--keep', dest="keep_users", action="append")
+(options, args) = parser.parse_args()
+
 def list_devs():
     users = pwd.getpwall()
     devs = [user for user in users if get_authorized_keys_filepath(user)]
@@ -22,18 +26,11 @@ def get_authorized_keys_filepath(user):
         return path
 
 def main():
-    parser = optparse.OptionParser()
-    parser.add_option('', '--keep', dest="keep_users", action="append")
-    (options, args) = parser.parse_args()
-
     if not options.keep_users:
         parser.error("At least one --keep option required. Refusing to purge ALL developers.")
 
-    users_to_drop = []
-    for username in list_devs():
-        if username not in options.keep_users:
-            users_to_drop.append(username)
     existing_devs = list_devs()
+    users_to_drop = [user for user in existing_devs if user not in options.keep_users]
     if not set(existing_devs) - set(users_to_drop):
         print("Error: refusing to remove all accounts")
         sys.exit(1)
