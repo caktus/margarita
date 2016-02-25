@@ -3,7 +3,7 @@ include:
 
 {% if 'users' in pillar and pillar['users'] %}
 {% for user, args in pillar['users'].iteritems() %}
-{{ user }}:
+dev_{{ user }}:
   user.present:
     - name: {{ user }}
     - shell: /bin/bash
@@ -18,7 +18,7 @@ include:
       - group: login
 {% endif %}
 
-{% if 'public_key' in args %}
+{% if 'public_key' in args and args['public_key'] %}
   ssh_auth:
     - present
     - user: {{ user }}
@@ -36,12 +36,12 @@ include:
 {% if 'users' in pillar and pillar['users'] %}
 purge_users:
   cmd.script:
-    - cwd: /var/www/{{ pillar['project_name']}}
+    - cwd: /
     - name: salt://users/disable-users.py
-    - args: {% for user in pillar['users'] %}--keep={{ user }} {% endfor %}
+    - args: --keep=vagrant {% for user in pillar['users'] %}--keep={{ user }} {% endfor %}
     - user: root
     - require:
 {% for user in pillar['users'] %}
-      - user: {{ user }}
+      - user: dev_{{ user }}
 {% endfor %}
 {% endif %}
