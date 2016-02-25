@@ -18,7 +18,7 @@ dev_{{ user }}:
       - group: login
 {% endif %}
 
-{% if 'public_key' in args %}
+{% if 'public_key' in args and args['public_key'] %}
   ssh_auth:
     - present
     - user: {{ user }}
