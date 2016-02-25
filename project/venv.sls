@@ -33,6 +33,18 @@ pip_requirements:
     - require:
       - virtualenv: venv
 
+{% if vars.use_newrelic %}
+# Make sure the New Relic agent is installed in the virtual env.
+# This allows us to add New Relic without modifying the project files.
+newrelic_agent:
+  pip.installed:
+    - name: "newrelic"
+    - bin_env: {{ vars.venv_dir }}
+    - upgrade: true
+    - require:
+      - virtualenv: venv
+{% endif %}
+
 project_path:
   file.managed:
     - contents: "{{ vars.source_dir }}"
@@ -41,6 +53,9 @@ project_path:
     - group: {{ pillar['project_name'] }}
     - require:
       - pip: pip_requirements
+{% if vars.use_newrelic %}
+      - pip: newrelic_agent
+{% endif %}
 
 ghostscript:
   pkg.installed

@@ -1,3 +1,4 @@
+# Forward logs to LOG_DESTINATION
 include:
   - syslog
 
