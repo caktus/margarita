@@ -1,4 +1,11 @@
 #!/usr/bin/env python
+"""disable-users.py - Disables all developer accounts *not* explicitly listed to keep.
+
+Accepts one or more --keep [username] arguments and disables all other accounts by
+removing their authorized_keys files, but remains otherwise non-destructive to allow
+recovery.
+"""
+
 from __future__ import print_function
 
 import sys
