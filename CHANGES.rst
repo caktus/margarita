@@ -16,7 +16,7 @@ v 1.6.1 on Feb 25, 2016
 
 * If using New Relic, ensure the agent is installed in the virtualenv. (#115)
 
-v 1.6.0 on Jan Feb 25, 2016
+v 1.6.0 on Feb 25, 2016
 ---------------------------
 
 * Added ``purge_users`` state to run after all developer keys are installed to
