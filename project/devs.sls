@@ -36,7 +36,7 @@ dev_{{ user }}:
 {% if 'users' in pillar and pillar['users'] %}
 purge_users:
   cmd.script:
-    - cwd: /var/www/{{ pillar['project_name']}}
+    - cwd: /
     - name: salt://users/disable-users.py
     - args: --keep=vagrant {% for user in pillar['users'] %}--keep={{ user }} {% endfor %}
     - user: root
