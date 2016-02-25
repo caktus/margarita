@@ -2,8 +2,11 @@ Margarita
 
 Changes - always add to the top.
 
-v 1.6.0 (Not yet released)
---------------------------
+v 1.6.0 on Jan Feb 25, 2016
+---------------------------
+
+* Added ``purge_users`` state to run after all developer keys are installed to
+  disable the accounts of any developers who are no longer in that list.
 
 * Added ``python_backport`` as optional pillar to install Python 2.7.9+ from the
   backport PPA https://launchpad.net/~fkrull/+archive/ubuntu/deadsnakes-python2.7.
@@ -17,7 +20,7 @@ v 1.6.0 (Not yet released)
 * Updated ``base`` and ``postgresql`` states to install the list of packages in
   a single command.
 
-* The default ``postgres_version`` has been updated to 9.3. 
+* The default ``postgres_version`` has been updated to 9.3.
 
 * The fallback for resetting the locale to UTF-8 has been removed.
   This was deprecated in v1.0.3.
