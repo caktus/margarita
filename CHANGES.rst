@@ -2,6 +2,15 @@ Margarita
 
 Changes - always add to the top.
 
+v 1.6.1 on Feb 25, 2016
+-----------------------
+
+* Added ``redis-master`` state to install Redis server. (#115)
+
+* Added ``postgresql.client`` state to install Postgresql client. (#115)
+
+* If using New Relic, ensure the agent is installed in the virtualenv. (#115)
+
 v 1.6.0 on Jan Feb 25, 2016
 ---------------------------
 
