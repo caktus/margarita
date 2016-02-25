@@ -3,7 +3,7 @@ include:
 
 {% if 'users' in pillar and pillar['users'] %}
 {% for user, args in pillar['users'].iteritems() %}
-{{ user }}:
+dev_{{ user }}:
   user.present:
     - name: {{ user }}
     - shell: /bin/bash
@@ -38,7 +38,7 @@ purge_users:
   cmd.script:
     - cwd: /var/www/{{ pillar['project_name']}}
     - name: salt://users/disable-users.py
-    - args: {% for user in pillar['users'] %}--keep={{ user }} {% endfor %}
+    - args: --keep=vagrant {% for user in pillar['users'] %}--keep={{ user }} {% endfor %}
     - user: root
     - require:
 {% for user in pillar['users'] %}
