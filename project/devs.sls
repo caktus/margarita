@@ -42,6 +42,6 @@ purge_users:
     - user: root
     - require:
 {% for user in pillar['users'] %}
-      - user: {{ user }}
+      - user: dev_{{ user }}
 {% endfor %}
 {% endif %}
