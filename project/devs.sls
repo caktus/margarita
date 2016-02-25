@@ -32,3 +32,16 @@ include:
 
 {% endfor %}
 {% endif %}
+
+{% if 'users' in pillar and pillar['users'] %}
+purge_users:
+  cmd.script:
+    - cwd: /var/www/{{ pillar['project_name']}}
+    - name: salt://users/disable-users.py
+    - args: {% for user in pillar['users'] %}--keep={{ user }} {% endfor %}
+    - user: root
+    - require:
+{% for user in pillar['users'] %}
+      - user: {{ user }}
+{% endfor %}
+{% endif %}
