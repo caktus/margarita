@@ -2,10 +2,10 @@ Margarita
 
 Changes - always add to the top.
 
-unreleased
-----------
+v 1.6.2 on Feb 25, 2016
+-----------------------
 
-* Fixes for ``purge_users``.
+* Fixes for ``purge_users`` (#116, #118)
 
 v 1.6.1 on Feb 25, 2016
 -----------------------
