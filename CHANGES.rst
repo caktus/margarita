@@ -2,6 +2,11 @@ Margarita
 
 Changes - always add to the top.
 
+v 1.6.3 on Feb 26, 2016
+-----------------------
+
+* Accept spaces in environment variables (#120)
+
 v 1.6.2 on Feb 25, 2016
 -----------------------
 
