@@ -2,6 +2,12 @@ Margarita
 
 Changes - always add to the top.
 
+unreleased
+----------
+
+* Option to use `letsencrypt.org <https://letsencrypt.org>`_ to
+  get certificates for sites by setting ``letsencrypt: true``.
+
 v 1.6.3 on Feb 26, 2016
 -----------------------
 
