@@ -9,4 +9,6 @@ base-packages:
       - byobu
       - ntp
       - sudo
-
+      - python-dev
+      - libffi-dev
+      - libssl-dev
