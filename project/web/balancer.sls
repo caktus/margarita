@@ -5,8 +5,8 @@
 {% set letsencrypt = pillar.get('letsencrypt', False) %}
 {% set letsencrypt_dir = vars.build_path(vars.root_dir,  'letsencrypt') %}
 
-{% set ssl_certificate = vars.ssl_dir + "/" + pillar['domain'] + ".crt" %}
-{% set ssl_certificate_key =  vars.ssl_dir + "/" + pillar['domain'] + ".key" %}
+{% set ssl_certificate = vars.build_path(vars.ssl_dir, pillar['domain'] + ".crt") %}
+{% set ssl_certificate_key = vars.build_path(vars.ssl_dir, pillar['domain'] + ".key") %}
 
 include:
   - nginx
@@ -42,7 +42,7 @@ ssl_dir:
       - file: root_dir
 
 {% if self_signed %}
-# Note: even if we are using letencrypt, we'll need a temporary SSL certificate
+# Note: even if we are using letsencrypt, we'll need a temporary SSL certificate
 # so that we can run nginx while getting the real certificate from letsencrypt.
 ssl_cert:
   cmd.run:
