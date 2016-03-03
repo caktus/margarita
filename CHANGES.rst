@@ -2,11 +2,12 @@ Margarita
 
 Changes - always add to the top.
 
-unreleased
-----------
+v 1.6.4 on Mar 3, 2016
+----------------------
 
 * Option to use `letsencrypt.org <https://letsencrypt.org>`_ to
   get certificates for sites by setting ``letsencrypt: true``.
+  See also `the documentation <http://caktus.github.io/developer-documentation/margarita/states.html#project-web-balancer>`_.
 
 v 1.6.3 on Feb 26, 2016
 -----------------------
