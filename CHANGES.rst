@@ -2,6 +2,12 @@ Margarita
 
 Changes - always add to the top.
 
+v 1.7.0 (unreleased)
+--------------------
+
+* Break apart 'repo' pillar into 'branch' and 'repo'. You will need to update
+  your pillars.
+
 v 1.6.4 on Mar 3, 2016
 ----------------------
 
