@@ -2,8 +2,8 @@ Margarita
 
 Changes - always add to the top.
 
-v 1.6.5 (unreleased)
---------------------
+v 1.6.5 on Mar 15, 2016
+-----------------------
 
 * Change default value for `stopasgroup` to `false` for gunicorn and celery
 
