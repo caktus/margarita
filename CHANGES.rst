@@ -5,8 +5,12 @@ Changes - always add to the top.
 v 1.7.0 (unreleased)
 --------------------
 
-* Break apart 'repo' pillar into 'branch' and 'repo'. You will need to update
-  your pillars.
+* Allow specifying the branch to deploy in the 'branch' pillar variable.
+    - Most projects should now be able to specify repo + url just once,
+      in `project.sls`.
+    - With this structure, the branch to deploy can now easily be overridden
+      from the command line. See Salt docs:
+      https://docs.saltstack.com/en/latest/topics/pillar/#set-pillar-data-at-the-command-line
 
 v 1.6.5 on Mar 15, 2016
 -----------------------
