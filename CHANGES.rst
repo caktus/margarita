@@ -2,6 +2,12 @@ Margarita
 
 Changes - always add to the top.
 
+v 1.6.6 (in development)
+------------------------
+
+* You can now configure which requirements file to use by specifying
+  `requirements_file`
+
 v 1.6.5 on Mar 15, 2016
 -----------------------
 
