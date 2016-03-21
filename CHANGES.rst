@@ -6,10 +6,29 @@ v 1.6.7 (unreleased)
 --------------------
 
 * Allow specifying the branch to deploy in the 'branch' pillar variable.
-    - Most projects should now be able to specify repo + url just once,
-      in `project.sls`.
-    - With this structure, the branch to deploy can now easily be overridden
-      from the command line. See Salt docs:
+    - NOTE: These changes are fully backwards compatible; no pillar changes
+      are required to update but structure simplifications are now possible.
+    - Most projects will be able to specify the repo just once, in `project.sls`::
+
+        repo:
+            url: git@github.com/user/project.git
+
+    - Projects which deploy the `master` branch to their production
+      environments may only need to change the `branch` pillar in their
+      staging environments::
+
+        branch: develop
+
+    - With this structure, the deploy branch can be easily overridden from
+      the command line::
+
+        salt '*' -l info highstate pillar='{"branch": "hotfix"}'
+
+      Corresponding changes in caktus/django-project-template show how
+      this can be used to deploy a non-default branch using Fabric with no
+      need to edit the pillar file.
+
+      For more info, see the Salt documentation:
       https://docs.saltstack.com/en/latest/topics/pillar/#set-pillar-data-at-the-command-line
 
 v 1.6.6 on Mar 21, 2016
