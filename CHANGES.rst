@@ -2,7 +2,7 @@ Margarita
 
 Changes - always add to the top.
 
-v 1.7.0 (unreleased)
+v 1.6.7 (unreleased)
 --------------------
 
 * Allow specifying the branch to deploy in the 'branch' pillar variable.
