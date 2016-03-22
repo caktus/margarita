@@ -35,7 +35,7 @@ project_repo:
   {% else %}
   git.latest:
     - name: "{{ pillar['repo']['url'] }}"
-    - rev: "{{ pillar['repo'].get('branch', 'master') }}"
+    - rev: "{{ pillar.get('branch', pillar['repo'].get('branch', 'master')) }}"
     - target: {{ vars.source_dir }}
     - force_checkout: True
     - user: {{ pillar['project_name'] }}
