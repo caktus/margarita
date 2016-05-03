@@ -2,6 +2,13 @@ Margarita
 
 Changes - always add to the top.
 
+v 1.6.8 on May 3, 2016
+----------------------
+
+* Add a state to install the Postgresql PPA for the desired version of
+  Postgres. Previously, the deploy would fail when using a version of
+  Postgres that was not available on the system.
+
 v 1.6.7 on Mar 22, 2016
 -----------------------
 
