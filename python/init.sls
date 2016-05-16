@@ -50,7 +50,6 @@ setuptools:
 pip:
   pip.installed:
     - name: pip==8.1.1
-    - upgrade: False
     - require:
       - pip: setuptools
 
