@@ -49,7 +49,7 @@ setuptools:
 
 pip:
   pip.installed:
-    - upgrade: True
+    - name: pip==8.1.1
     - require:
       - pip: setuptools
 

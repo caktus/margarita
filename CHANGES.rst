@@ -2,6 +2,23 @@ Margarita
 
 Changes - always add to the top.
 
+v 1.7.0 on May 16, 2016
+-----------------------
+
+* Pin global pip to 8.1.1 to avoid Salt incompatibility.
+
+  .. IMPORTANT::
+
+     If your deploy is currently broken because you have run a deploy with a version of Margarita
+     less than 1.7.0, then run the following command first::
+
+       $ fab staging salt:"cmd.run 'pip install pip\=\=8.1.1'"   # Yes, the backquotes are needed!
+
+     Then, update your ``margarita_version`` to 1.7.0 and deploy::
+
+       $ fab staging deploy
+
+
 v 1.6.8 on May 3, 2016
 ----------------------
 
