@@ -170,6 +170,7 @@ install_letsencrypt:
   git.latest:
     - name: https://github.com/letsencrypt/letsencrypt/
     - target: {{ letsencrypt_dir }}
+    - force_checkout: True
 
 # Run letsencrypt to get a key and certificate
 run_letsencrypt:
