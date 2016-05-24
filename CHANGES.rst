@@ -2,6 +2,13 @@ Margarita
 
 Changes - always add to the top.
 
+v 1.7.1 on May 24, 2016
+-----------------------
+
+* Reset the letsencrypt git repo each time before pulling, to avoid an
+  error due to a dirty working tree caused by letsencrypt's built-in updater.
+
+
 v 1.7.0 on May 16, 2016
 -----------------------
 
