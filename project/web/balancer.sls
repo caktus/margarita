@@ -205,12 +205,8 @@ link_key:
     - force: true
     - require:
       - file: link_cert
-
-reload_nginx_for_cert:
-  cmd.run:
-    - name: service nginx reload
-    - require:
-      - file: link_key
+    - watch_in:
+      - service: nginx
 
 # Once a week, renew our cert(s) if we need to. This will only renew them if
 # they're within 30 days of expiring, so it's not a big burden on the certificate
