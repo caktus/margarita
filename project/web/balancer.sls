@@ -168,8 +168,7 @@ nginx_conf:
 # letsencrypt for Ubuntu yet, but once there is, we should switch to that.
 really_reset_letsencrypt:
   cmd.run:
-    - name: git reset --hard HEAD
-    - cwd: {{ letsencrypt_dir }}
+    - name: cd {{ letsencrypt_dir}} && git reset --hard HEAD
     - onlyif: test -e {{ letsencrypt_dir }}/.git
 
 install_letsencrypt:
