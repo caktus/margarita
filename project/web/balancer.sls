@@ -166,12 +166,17 @@ nginx_conf:
 # To install letsencrypt for now, just clone the latest version and invoke the
 # ``letsencrypt-auto`` script from there. There's not a packaged version of
 # letsencrypt for Ubuntu yet, but once there is, we should switch to that.
+really_reset_letsencrypt:
+  cmd.run:
+    - name: cd {{ letsencrypt_dir}} && git reset --hard HEAD
+    - onlyif: test -e {{ letsencrypt_dir }}/.git
+
 install_letsencrypt:
   git.latest:
     - name: https://github.com/letsencrypt/letsencrypt/
     - target: {{ letsencrypt_dir }}
-    - force_checkout: True
-    - force_reset: True
+    - require:
+        - cmd: really_reset_letsencrypt
 
 # Run letsencrypt to get a key and certificate
 run_letsencrypt:
@@ -199,12 +204,8 @@ link_key:
     - force: true
     - require:
       - file: link_cert
-
-reload_nginx_for_cert:
-  cmd.run:
-    - name: service nginx reload
-    - require:
-      - file: link_key
+    - watch_in:
+      - service: nginx
 
 # Once a week, renew our cert(s) if we need to. This will only renew them if
 # they're within 30 days of expiring, so it's not a big burden on the certificate
