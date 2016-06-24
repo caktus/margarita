@@ -2,6 +2,12 @@ Margarita
 
 Changes - always add to the top.
 
+v 1.7.2 on Jun 24, 2016
+-----------------------
+
+* Manually reset letsencrypt git repo since the salt version attempted in 1.7.1 didn't work in
+  practice.
+
 v 1.7.1 on May 24, 2016
 -----------------------
 
