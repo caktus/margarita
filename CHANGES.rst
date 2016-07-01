@@ -2,6 +2,12 @@ Margarita
 
 Changes - always add to the top.
 
+v 1.7.3 on July 1, 2016
+-----------------------
+
+* When HTTP Auth is enabled (typically for staging environments) allow OPTIONS through without
+  Authorization header, to allow CORS preflight requests to complete.
+
 v 1.7.2 on Jun 24, 2016
 -----------------------
 
