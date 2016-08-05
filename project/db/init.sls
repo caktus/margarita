@@ -23,7 +23,6 @@ database-{{ pillar['project_name'] }}:
     - owner: {{ pillar['project_name'] }}_{{ pillar['environment'] }}
     - template: template0
     - encoding: UTF8
-    - locale: en_US.UTF-8
     - lc_collate: en_US.UTF-8
     - lc_ctype: en_US.UTF-8
     - require:
