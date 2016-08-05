@@ -1,8 +1,10 @@
 # Enable standard sections which are disabled by default
 [ssh-ddos]
 enabled = true
+filter = sshd-ddos
 logpath  = /var/log/auth.log
 
 [postfix]
 enabled  = true
+filter = postfix
 logpath  = /var/log/mail.log
