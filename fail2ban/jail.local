@@ -1,6 +1,8 @@
 # Enable standard sections which are disabled by default
 [ssh-ddos]
 enabled = true
+logpath  = /var/log/auth.log
 
 [postfix]
 enabled  = true
+logpath  = /var/log/mail.log
