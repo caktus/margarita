@@ -46,12 +46,13 @@ setuptools:
     - upgrade: True
     - require:
       - pkg: python-pkgs
+      - pip: pip
 
 pip:
   pip.installed:
-    - name: pip==8.1.2
+    - upgrade: True
     - require:
-      - pip: setuptools
+      - pkg: python-pkgs
 
 virtualenv:
   pip.installed:
