@@ -3,17 +3,12 @@ deadsnakes:
     - humanname: Deadsnakes PPA
     - ppa: fkrull/deadsnakes
 
-python-base-pkgs:
+python-pkgs:
   pkg:
     - installed
     - names:
       - python-pip
       - build-essential
-
-python-headers:
-  pkg:
-    - installed
-    - names:
       - libpq-dev
       - libev-dev
       - libevent-dev
@@ -27,13 +22,17 @@ python-headers:
       - libxml2-dev
       - libxslt1-dev
       - ghostscript
+      - python{{ pillar['python_version'] }}
+      - python{{ pillar['python_version'] }}-dev
+    - require:
+      - pkgrepo: deadsnakes
 
 setuptools:
   pip.installed:
     - name: setuptools<8.0
     - upgrade: True
     - require:
-      - pkg: python-base-pkgs
+      - pkg: python-pkgs
 
 pip:
   pip.installed:
@@ -51,16 +50,16 @@ virtualenv:
   file.symlink:
     - target: /usr/lib/{{ grains['cpuarch'] }}-linux-gnu/libz.so
     - require:
-      - pkg: python-headers
+      - pkg: python-pkgs
 
 /usr/lib/libfreetype.so:
   file.symlink:
     - target: /usr/lib/{{ grains['cpuarch'] }}-linux-gnu/libfreetype.so
     - require:
-      - pkg: python-headers
+      - pkg: python-pkgs
 
 /usr/lib/libjpeg.so:
   file.symlink:
     - target: /usr/lib/{{ grains['cpuarch'] }}-linux-gnu/libjpeg.so
     - require:
-      - pkg: python-headers
+      - pkg: python-pkgs

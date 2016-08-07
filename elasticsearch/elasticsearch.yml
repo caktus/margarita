@@ -1,0 +1,9 @@
+network.bind_host: 127.0.0.1
+cluster:
+  name: {{ pillar['project_name'] }}_{{ pillar['environment'] }}
+node:
+  name: {{ grains['id'] }}
+
+# Don't form ad-hoc clusters
+# See https://www.elastic.co/guide/en/elasticsearch/guide/current/_important_configuration_changes.html#_prefer_unicast_over_multicast
+discovery.zen.ping.multicast.enabled: false
