@@ -38,6 +38,7 @@ project_repo:
     - rev: "{{ pillar.get('branch', pillar['repo'].get('branch', 'master')) }}"
     - target: {{ vars.source_dir }}
     - force_checkout: True
+    - force_reset: True
     - user: {{ pillar['project_name'] }}
     {% if 'github_deploy_key' in pillar %}
     - identity: "/home/{{ pillar['project_name'] }}/.ssh/github"
