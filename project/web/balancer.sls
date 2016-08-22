@@ -175,6 +175,7 @@ install_letsencrypt:
   git.latest:
     - name: https://github.com/letsencrypt/letsencrypt/
     - target: {{ letsencrypt_dir }}
+    - force_reset: True
     - require:
         - cmd: really_reset_letsencrypt
 
