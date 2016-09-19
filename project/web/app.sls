@@ -86,7 +86,6 @@ migrate:
     - name: "{{ vars.path_from_root('manage.sh') }} migrate --noinput"
     - user: {{ pillar['project_name'] }}
     - group: {{ pillar['project_name'] }}
-    - onlyif: "{{ vars.path_from_root('manage.sh') }} migrate --list | grep '\\[ \\]'"
     - require:
       - file: manage
     - order: last
