@@ -22,7 +22,7 @@ default_conf:
         name: "celery-default"
         use_newrelic: {{ vars.use_newrelic }}
         command: "worker"
-        flags: "--loglevel=INFO"
+        flags: "{{ pillar.get('celery_worker_arguments', '--loglevel=INFO') }}"
     - require:
       - pip: supervisor
       - file: log_dir
