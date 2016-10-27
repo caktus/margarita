@@ -2,13 +2,21 @@ Margarita
 
 Changes - always add to the top.
 
+v 1.7.5 on October 27, 2016
+---------------------------
+
+* Allow override of Celery worker-specific command-line arguments.  Continues to default to
+  "--loglevel=INFO".  Example::
+
+    celery_worker_arguments: "--loglevel=INFO --maxtasksperchild 1"
+
 v 1.7.4 on August 17, 2016
 --------------------------
 
 * Always run migrate during deploy. Previously "migrate --list" was used in an attempt to
-only run migrate when needed, but "migrate --list" no longer exists with Django 1.10. The new
-variant, showmigrations, didn't exist in Django 1.7. For now, to allow supporting a wide range
-of Django versions on deploy, it's easiest to simply run migrate on every deploy.
+  only run migrate when needed, but "migrate --list" no longer exists with Django 1.10. The new
+  variant, showmigrations, didn't exist in Django 1.7. For now, to allow supporting a wide range
+  of Django versions on deploy, it's easiest to simply run migrate on every deploy.
 
 v 1.7.3 on July 1, 2016
 -----------------------
