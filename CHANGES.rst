@@ -2,8 +2,8 @@ Margarita
 
 Changes - always add to the top.
 
-v 1.7.? on ??, ????
--------------------
+v 1.7.5 on October 27, 2016
+---------------------------
 
 * Allow override of Celery worker-specific command-line arguments.  Continues to default to
   "--loglevel=INFO".  Example::
