@@ -3,6 +3,7 @@
 {% set self_signed='ssl_key' not in pillar or 'ssl_cert' not in pillar %}
 {% set dhparams_file = vars.build_path(vars.ssl_dir, 'dhparams.pem') %}
 {% set letsencrypt = pillar.get('letsencrypt', False) %}
+{% set letsencrypt_domains = pillar.get('letsencrypt_domains', [pillar['domain']]) %}
 {% set letsencrypt_dir = vars.build_path(vars.root_dir,  'letsencrypt') %}
 
 {% set ssl_certificate = vars.build_path(vars.ssl_dir, pillar['domain'] + ".crt") %}
@@ -181,7 +182,7 @@ install_letsencrypt:
 # Run letsencrypt to get a key and certificate
 run_letsencrypt:
   cmd.run:
-    - name: {{ letsencrypt_dir }}/letsencrypt-auto certonly --webroot --webroot-path {{ vars.public_dir }} -d {{ pillar['domain'] }} --email={{ pillar['admin_email'] }} --agree-tos --text --non-interactive
+    - name: name: {{ letsencrypt_dir }}/letsencrypt-auto certonly --webroot --webroot-path {{ vars.public_dir }} {% for domain in letsencrypt_domains %}-d {{ domain }} {% endfor %} --email={{ pillar['admin_email'] }} --agree-tos --text --non-interactive
     - unless: test -s /etc/letsencrypt/live/{{ pillar['domain'] }}/fullchain.pem -a -s /etc/letsencrypt/live/{{ pillar['domain'] }}/privkey.pem
     - env:
       - XDG_DATA_HOME: /root/letsencrypt
