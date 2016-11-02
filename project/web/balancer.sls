@@ -182,7 +182,7 @@ install_letsencrypt:
 # Run letsencrypt to get a key and certificate
 run_letsencrypt:
   cmd.run:
-    - name: name: {{ letsencrypt_dir }}/letsencrypt-auto certonly --webroot --webroot-path {{ vars.public_dir }} {% for domain in letsencrypt_domains %}-d {{ domain }} {% endfor %} --email={{ pillar['admin_email'] }} --agree-tos --text --non-interactive
+    - name: {{ letsencrypt_dir }}/letsencrypt-auto certonly --webroot --webroot-path {{ vars.public_dir }} {% for domain in letsencrypt_domains %}-d {{ domain }} {% endfor %} --email={{ pillar['admin_email'] }} --agree-tos --text --non-interactive
     - unless: test -s /etc/letsencrypt/live/{{ pillar['domain'] }}/fullchain.pem -a -s /etc/letsencrypt/live/{{ pillar['domain'] }}/privkey.pem
     - env:
       - XDG_DATA_HOME: /root/letsencrypt
