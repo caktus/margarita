@@ -2,6 +2,17 @@ Margarita
 
 Changes - always add to the top.
 
+v 1.7.6 on November 2, 2016
+
+* Allow specifying ``letsencrypt_domains`` in Pillar to make `letsencrypt`
+  work with multiple domains. Example::
+
+    letsencrypt_domains:
+      - example.com
+      - www.example.com
+      - legacyexample.com
+      - www.legacyexample.com
+
 v 1.7.5 on October 27, 2016
 ---------------------------
 
