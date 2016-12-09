@@ -50,7 +50,11 @@ setuptools:
 
 pip:
   pip.installed:
+{% if grains['saltversion'] < '2016.3.2' %}
+    - name: pip==8.1.1
+{% else %}
     - upgrade: True
+{% endif %}
     - require:
       - pkg: python-pkgs
 
