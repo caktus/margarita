@@ -1,7 +1,9 @@
 {% set root_dir = "/var/www/" + pillar['project_name'] + "/" %}
 
-{% macro get_primary_ip(ifaces) -%}
-  {{ ifaces.get(salt['pillar.get']('primary_iface', 'eth0'), {}).get('inet', [{}])[0].get('address') }}
+{% macro get_primary_ip(host, ifaces) -%}
+  {# use `primary_iface` from pillar, then fall back to getting the iface from the default route #}
+  {%- set minion_iface = salt['pillar.get']('primary_iface', salt['mine.get'](host, 'network.default_route')[host][0]['interface']) -%}
+  {{ ifaces[minion_iface].get('inet', [{}])[0].get('address') }}
 {%- endmacro %}
 
 {% macro build_path(root, name) -%}
@@ -13,7 +15,8 @@
 {%- endmacro %}
 
 {% set auth_file = path_from_root(".htpasswd") %}
-{% set current_ip = grains['ip_interfaces'].get(salt['pillar.get']('primary_iface', 'eth0'), [])[0] %}
+{% set iface = salt['pillar.get']('primary_iface', salt['network.default_route']('inet')[0]['interface']) %}
+{% set current_ip = grains['ip_interfaces'].get(iface)[0] %}
 {% set log_dir = path_from_root('log') %}
 {% set public_dir = path_from_root('public') %}
 {% set services_dir = path_from_root('services') %}

@@ -48,7 +48,7 @@ gunicorn_process:
       - file: gunicorn_conf
 
 {% for host, ifaces in vars.balancer_minions.items() %}
-{% set host_addr = vars.get_primary_ip(ifaces) %}
+{% set host_addr = vars.get_primary_ip(host, ifaces) %}
 app_allow-{{ host_addr }}:
   ufw.allow:
     - name: '8000'

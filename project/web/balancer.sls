@@ -137,7 +137,7 @@ nginx_conf:
         dhparams_file: "{{ dhparams_file }}"
         servers:
 {% for host, ifaces in vars.web_minions.items() %}
-{% set host_addr = vars.get_primary_ip(ifaces) %}
+{% set host_addr = vars.get_primary_ip(host, ifaces) %}
           - {% if host_addr == vars.current_ip %}'127.0.0.1'{% else %}{{ host_addr }}{% endif %}
 {% endfor %}
         {%- if 'http_auth' in pillar %}
