@@ -1,3 +1,6 @@
+include:
+  - base
+
 /etc/sudoers.d/admin:
   file.managed:
     - source: salt://sudo/sudoers.d/admin

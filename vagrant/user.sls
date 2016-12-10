@@ -7,7 +7,7 @@ include:
 
 vagrant:
   user.present:
-    - name: vagrant
+    - name: {{ pillar['vagrant_user'] }}
     - remove_groups: False
     - groups: [admin, login]
     - require:
