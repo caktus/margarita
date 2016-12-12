@@ -5,12 +5,11 @@ include:
   - ufw
 
 {% for host, ifaces in vars.app_minions.items() %}
-{% set host_addr = vars.get_primary_ip(host, ifaces) %}
-cache_allow-{{ host_addr }}:
+cache_allow-{{ vars.get_primary_ip(host, ifaces) }}:
   ufw.allow:
     - name: '11211'
     - enabled: true
-    - from: {{ host_addr }}
+    - from: {{ vars.get_primary_ip(host, ifaces) }}
     - require:
       - pkg: ufw
 {% endfor %}

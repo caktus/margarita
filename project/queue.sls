@@ -24,12 +24,11 @@ broker-user:
       - rabbitmq_vhost: broker-vhost
 
 {% for host, ifaces in vars.app_minions.items() %}
-{% set host_addr = vars.get_primary_ip(host, ifaces) %}
-queue_allow-{{ host_addr }}:
+queue_allow-{{ vars.get_primary_ip(host, ifaces) }}:
   ufw.allow:
     - name: '5672'
     - enabled: true
-    - from: {{ host_addr }}
+    - from: {{ vars.get_primary_ip(host, ifaces) }}
     - require:
       - pkg: ufw
 {% endfor %}

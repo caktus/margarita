@@ -42,8 +42,7 @@ hba_conf:
         version: "{{ pg_version }}"
         servers:
 {%- for host, ifaces in vars.app_minions.items() %}
-{% set host_addr = vars.get_primary_ip(host, ifaces) %}
-          - {{ host_addr }}
+          - {{ vars.get_primary_ip(host, ifaces) }}
 {% endfor %}
     - require:
       - pkg: postgresql
@@ -66,12 +65,11 @@ postgresql_conf:
       - service: postgresql
 
 {% for host, ifaces in vars.app_minions.items() %}
-{% set host_addr = vars.get_primary_ip(host, ifaces) %}
-db_allow-{{ host_addr }}:
+db_allow-{{ vars.get_primary_ip(host, ifaces) }}:
   ufw.allow:
     - name: '5432'
     - enabled: true
-    - from: {{ host_addr }}
+    - from: {{ vars.get_primary_ip(host, ifaces) }}
     - require:
       - pkg: ufw
 {% endfor %}

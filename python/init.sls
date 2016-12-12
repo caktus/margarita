@@ -53,6 +53,7 @@ pip:
 {% if grains['saltversion'] < '2016.3.2' %}
     - name: pip==8.1.1
 {% else %}
+    - name: pip
     - upgrade: True
 {% endif %}
     - require:
