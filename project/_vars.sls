@@ -2,7 +2,7 @@
 
 {% macro get_primary_ip(host, ifaces) -%}
   {# use `primary_iface` from pillar, then fall back to getting the iface from the default route #}
-  {{ ifaces[salt['pillar.get']('primary_iface', salt['mine.get'](host, 'network.default_route')[host][0]['interface'])].get('inet', [{}])[0].get('address') }}
+  {{- ifaces[salt['pillar.get']('primary_iface', salt['mine.get'](host, 'network.default_route')[host][0]['interface'])].get('inet', [{}])[0].get('address') -}}
 {%- endmacro %}
 
 {% macro build_path(root, name) -%}
