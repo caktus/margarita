@@ -1,8 +1,18 @@
 {% set root_dir = "/var/www/" + pillar['project_name'] + "/" %}
 
+{% macro get_primary_iface_name(host) -%}
+  {# return the name of the primary iface of the specified host. This is either the value hardcoded in the pillar, or the iface associated with the default route. #}
+  {{- pillar.get('primary_iface', salt['mine.get'](host, 'network.default_route')[host][0]['interface']) -}}
+{% endmacro %}
+
+{% macro get_iface_ip(ifaces, iface_name) -%}
+  {# given a list of ifaces and an iface_name, return the IP address associated with that iface #}
+  {{- ifaces[iface_name].get('inet', [{}])[0].get('address') -}}
+{% endmacro %}
+
 {% macro get_primary_ip(host, ifaces) -%}
-  {# use `primary_iface` from pillar, then fall back to getting the iface from the default route #}
-  {{- ifaces[salt['pillar.get']('primary_iface', salt['mine.get'](host, 'network.default_route')[host][0]['interface'])].get('inet', [{}])[0].get('address') -}}
+  {# Given a minion hostname and a list of its network interfaces, return its primary IP #}
+  {{- get_iface_ip(ifaces, get_primary_iface_name(host)) -}}
 {%- endmacro %}
 
 {% macro build_path(root, name) -%}
