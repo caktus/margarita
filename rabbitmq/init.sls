@@ -17,7 +17,7 @@ erlang:
 rabbitmq-server:
   pkgrepo.managed:
     - name: deb http://www.rabbitmq.com/debian/ testing main
-    - key_url: http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
+    - key_url: https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
     - require_in:
       - pkg: rabbitmq-server
   pkg:

@@ -23,7 +23,6 @@ database-{{ pillar['project_name'] }}:
     - owner: {{ pillar['project_name'] }}_{{ pillar['environment'] }}
     - template: template0
     - encoding: UTF8
-    - locale: en_US.UTF-8
     - lc_collate: en_US.UTF-8
     - lc_ctype: en_US.UTF-8
     - require:
@@ -43,8 +42,7 @@ hba_conf:
         version: "{{ pg_version }}"
         servers:
 {%- for host, ifaces in vars.app_minions.items() %}
-{% set host_addr = vars.get_primary_ip(ifaces) %}
-          - {{ host_addr }}
+          - {{ vars.get_primary_ip(host, ifaces) }}
 {% endfor %}
     - require:
       - pkg: postgresql
@@ -67,12 +65,11 @@ postgresql_conf:
       - service: postgresql
 
 {% for host, ifaces in vars.app_minions.items() %}
-{% set host_addr = vars.get_primary_ip(ifaces) %}
-db_allow-{{ host_addr }}:
+db_allow-{{ vars.get_primary_ip(host, ifaces) }}:
   ufw.allow:
     - name: '5432'
     - enabled: true
-    - from: {{ host_addr }}
+    - from: {{ vars.get_primary_ip(host, ifaces) }}
     - require:
       - pkg: ufw
 {% endfor %}

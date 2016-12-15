@@ -1,3 +1,6 @@
+include:
+  - python
+
 supervisor:
   pip.installed:
     - name: supervisor==3.0
@@ -15,7 +18,7 @@ supervisor_service:
       - pip: supervisor
     - watch:
       - file: supervisor_conf
-      - file: supervisor_init
+      - module: supervisor_init
 
 supervisor_conf:
   file.managed:
@@ -51,6 +54,15 @@ supervisor_init:
     - user: root
     - group: root
     - mode: 744
+  module.run:
+{% if grains['init'] == 'systemd' %}
+    - name: service.systemctl_reload
+{% else %}
+    {# No-op call since 'upstart' doesn't need to reload #}
+    - name: test.true
+{% endif %}
+    - onchanges:
+      - file: supervisor_init
 
 supervisor_log:
   file.directory:
