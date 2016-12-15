@@ -12,3 +12,4 @@ base-packages:
       - python-dev
       - libffi-dev
       - libssl-dev
+      - apt-transport-https
