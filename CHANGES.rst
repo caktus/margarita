@@ -1,8 +1,52 @@
 Margarita
+=========
 
 Changes - always add to the top.
 
+v 2.0.0 on December 15, 2016
+----------------------------
+
+* Add support for Ubuntu 16.04 (Xenial)
+
+  .. IMPORTANT::
+
+     To upgrade to this version of Margarita from either a previous release, or from the
+     'origin/xenial' branch of this repo, then you will need to follow these steps. Look at the
+     `Django Project Template PR
+     <https://github.com/caktus/django-project-template/pull/280/files>`_ for a diff that you may be
+     able to apply directly to your repo in place of steps 1 through 4:
+
+     1. Copy the latest version of the ``install_salt.sh`` script from the `Django Project Template
+        repo <https://github.com/caktus/django-project-template/blob/master/install_salt.sh>`_ to
+        your repo.
+
+     #. Set ``SALT_VERSION`` to '2016.3.4' in your fabfile.py.
+
+     #. Add ``network.default_route`` to the ``mine_functions`` section of the ``setup_minion``
+        function of your fabfile::
+
+          'mine_functions': {
+              'network.interfaces': [],
+              'network.default_route': {
+                  'family': 'inet',
+              },
+          },
+
+     #. Update ``margarita_version`` to '2.0.0' in ``conf/pillar/project.sls``
+
+     #. Update your servers::
+
+          fab staging setup_master
+          fab staging setup_minion:<INSERT CURRENT ROLES HERE> -H <MINION_IP>
+          # repeat the setup_minion call for each minion.
+          fab staging deploy
+
+        To find the list of roles for each minion, SSH into the minion and look at /etc/salt/minion
+
+
+
 v 1.7.6 on November 2, 2016
+---------------------------
 
 * Allow specifying ``letsencrypt_domains`` in Pillar to make `letsencrypt`
   work with multiple domains. Example::
