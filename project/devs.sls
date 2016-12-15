@@ -38,7 +38,7 @@ purge_users:
   cmd.script:
     - cwd: /
     - name: salt://users/disable-users.py
-    - args: --keep={{ pillar.get('vagrant_user', 'ubuntu') }} {% for user in pillar['users'] %}--keep={{ user }} {% endfor %}
+    - args: --keep=vagrant {% for user in pillar['users'] %}--keep={{ user }} {% endfor %}
     - user: root
     - require:
 {% for user in pillar['users'] %}
