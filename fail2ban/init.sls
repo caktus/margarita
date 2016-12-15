@@ -1,3 +1,6 @@
+include:
+  - postfix
+
 fail2ban:
   pkg:
     - installed
@@ -5,6 +8,8 @@ fail2ban:
     - enable: True
     - watch:
       - file: /etc/fail2ban/jail.local
+    - requires:
+      - pkg: postfix
 
 /etc/fail2ban/jail.local:
   file.managed:

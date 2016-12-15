@@ -46,12 +46,18 @@ setuptools:
     - upgrade: True
     - require:
       - pkg: python-pkgs
+      - pip: pip
 
 pip:
   pip.installed:
+{% if grains['saltversion'] < '2016.3.2' %}
     - name: pip==8.1.1
+{% else %}
+    - name: pip
+    - upgrade: True
+{% endif %}
     - require:
-      - pip: setuptools
+      - pkg: python-pkgs
 
 virtualenv:
   pip.installed:
