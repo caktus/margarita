@@ -4,7 +4,7 @@
 {% set dhparams_file = vars.build_path(vars.ssl_dir, 'dhparams.pem') %}
 {% set letsencrypt = pillar.get('letsencrypt', False) %}
 {% set letsencrypt_domains = pillar.get('letsencrypt_domains', [pillar['domain']]) %}
-{% set letsencrypt_dir = vars.build_path(vars.root_dir,  'letsencrypt') %}
+{% set old_letsencrypt_dir = vars.build_path(vars.root_dir,  'letsencrypt') %}
 
 {% set ssl_certificate = vars.build_path(vars.ssl_dir, pillar['domain'] + ".crt") %}
 {% set ssl_certificate_key = vars.build_path(vars.ssl_dir, pillar['domain'] + ".key") %}
@@ -164,31 +164,27 @@ nginx_conf:
 {% if letsencrypt %}
 # Now that we have nginx running, we can get a real certificate.
 
-# To install letsencrypt for now, just clone the latest version and invoke the
-# ``letsencrypt-auto`` script from there. There's not a packaged version of
-# letsencrypt for Ubuntu yet, but once there is, we should switch to that.
-really_reset_letsencrypt:
-  cmd.run:
-    - name: cd {{ letsencrypt_dir}} && git reset --hard HEAD
-    - onlyif: test -e {{ letsencrypt_dir }}/.git
-
 install_letsencrypt:
-  git.latest:
-    - name: https://github.com/letsencrypt/letsencrypt/
-    - target: {{ letsencrypt_dir }}
-    - force_reset: True
+  pip.installed:
+    - name: certbot
+    - upgrade: True
     - require:
-        - cmd: really_reset_letsencrypt
+      - pip: pip
+  cron.absent:
+    - identifier: renew_letsencrypt
+  file.directory:
+    - name: {{ old_letsencrypt_dir }}
+    - clean: True
+    - onchanges_in:
+      - cron: renew_letsencrypt
 
 # Run letsencrypt to get a key and certificate
 run_letsencrypt:
   cmd.run:
-    - name: {{ letsencrypt_dir }}/letsencrypt-auto certonly --webroot --webroot-path {{ vars.public_dir }} {% for domain in letsencrypt_domains %}-d {{ domain }} {% endfor %} --email={{ pillar['admin_email'] }} --agree-tos --text --non-interactive
+    - name: certbot certonly --webroot -w {{ vars.public_dir }} {% for domain in letsencrypt_domains %}-d {{ domain }} {% endfor %} --email={{ pillar['admin_email'] }} --agree-tos --text --non-interactive
     - unless: test -s /etc/letsencrypt/live/{{ pillar['domain'] }}/fullchain.pem -a -s /etc/letsencrypt/live/{{ pillar['domain'] }}/privkey.pem
-    - env:
-      - XDG_DATA_HOME: /root/letsencrypt
     - require:
-      - git: install_letsencrypt
+      - pip: install_letsencrypt
       - file: nginx_conf
 
 link_cert:
@@ -212,10 +208,10 @@ link_key:
 # Once a week, renew our cert(s) if we need to. This will only renew them if
 # they're within 30 days of expiring, so it's not a big burden on the certificate
 # service.  https://letsencrypt.readthedocs.org/en/latest/using.html#renewal
-renew_letsencrypt:
+renew_certbot:
   cron.present:
-    - name: env XDG_DATA_HOME=/root/letsencrypt {{ letsencrypt_dir }}/letsencrypt-auto renew; /etc/init.d/nginx reload
-    - identifier: renew_letsencrypt
+    - name: certbot renew; /etc/init.d/nginx reload
+    - identifier: renew_certbot
     - minute: random
     - hour: random
     - dayweek: 0
