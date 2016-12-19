@@ -3,6 +3,12 @@ Margarita
 
 Changes - always add to the top.
 
+v 2.1.0 on December 15, 2016
+----------------------------
+
+* Fix Vagrant support. (#148)
+
+
 v 2.0.0 on December 15, 2016
 ----------------------------
 
