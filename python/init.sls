@@ -1,21 +1,5 @@
 {% set python_version = pillar.get('python_version', '2.7') ~ '' %}
 
-deadsnakes:
-  pkgrepo.managed:
-    - humanname: Deadsnakes PPA
-    - ppa: fkrull/deadsnakes
-    - require_in:
-      - pkg: python-pkgs
-
-{% if python_version == '2.7' and pillar.get('python_backport') %}
-deadsnakes-python2.7:
-  pkgrepo.managed:
-    - humanname: Deadsnakes PPA for 2.7
-    - ppa: fkrull/deadsnakes-python2.7
-    - require_in:
-      - pkg: python-pkgs
-{% endif %}
-
 python-pkgs:
   pkg.installed:
     - pkgs:
