@@ -164,27 +164,20 @@ nginx_conf:
 {% if letsencrypt %}
 # Now that we have nginx running, we can get a real certificate.
 
-install_letsencrypt:
-  pip.installed:
-    - name: certbot
-    - upgrade: True
-    - require:
-      - pip: pip
-  cron.absent:
-    - identifier: renew_letsencrypt
-  file.directory:
-    - name: {{ old_letsencrypt_dir }}
-    - clean: True
-    - onchanges_in:
-      - cron: renew_letsencrypt
+install_certbot:
+  file.managed:
+    - name: /usr/local/bin/certbot-auto
+    - source: https://dl.eff.org/certbot-auto
+    - source_hash: sha256=fcff7a6a899d1ab576369e5849087b3db7e6cf251e1ea2c963e11b05dfe62e5c
+    - mode: 755
 
-# Run letsencrypt to get a key and certificate
-run_letsencrypt:
+# Run certbot to get a key and certificate
+run_certbot:
   cmd.run:
-    - name: certbot certonly --webroot -w {{ vars.public_dir }} {% for domain in letsencrypt_domains %}-d {{ domain }} {% endfor %} --email={{ pillar['admin_email'] }} --agree-tos --text --non-interactive
+    - name: certbot -q certonly --webroot -w {{ vars.public_dir }} {% for domain in letsencrypt_domains %}-d {{ domain }} {% endfor %} --email={{ pillar['admin_email'] }} --agree-tos --text --non-interactive
     - unless: test -s /etc/letsencrypt/live/{{ pillar['domain'] }}/fullchain.pem -a -s /etc/letsencrypt/live/{{ pillar['domain'] }}/privkey.pem
     - require:
-      - pip: install_letsencrypt
+      - file: install_certbot
       - file: nginx_conf
 
 link_cert:
@@ -193,7 +186,7 @@ link_cert:
     - target: /etc/letsencrypt/live/{{ pillar['domain'] }}/fullchain.pem
     - force: true
     - require:
-      - cmd: run_letsencrypt
+      - cmd: run_certbot
 
 link_key:
   file.symlink:
@@ -205,17 +198,26 @@ link_key:
     - watch_in:
       - service: nginx
 
-# Once a week, renew our cert(s) if we need to. This will only renew them if
+# Twice a day, renew our cert(s) if we need to. This will only renew them if
 # they're within 30 days of expiring, so it's not a big burden on the certificate
-# service.  https://letsencrypt.readthedocs.org/en/latest/using.html#renewal
+# service.  (In fact, it's recommended to be this often, in the rare case of a
+# LetsEncrypt initiated revocation) https://certbot.eff.org/#ubuntutrusty-nginx
 renew_certbot:
   cron.present:
-    - name: certbot renew; /etc/init.d/nginx reload
+    - name: certbot -q renew && /etc/init.d/nginx reload
     - identifier: renew_certbot
     - minute: random
-    - hour: random
-    - dayweek: 0
+    - hour: "3,15"
     - require:
-       - git: install_letsencrypt
-       - cmd: run_letsencrypt
+       - file: install_certbot
+       - cmd: run_certbot
+
+# Salt state to remove the previous git checkout of letsencrypt
+remove_old_letsencrypt:
+  cron.absent:
+    - identifier: renew_letsencrypt
+  file.directory:
+    - name: {{ old_letsencrypt_dir }}
+    - clean: True
+
 {% endif %}
