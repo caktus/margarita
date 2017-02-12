@@ -174,7 +174,7 @@ install_certbot:
 # Run certbot to get a key and certificate
 run_certbot:
   cmd.run:
-    - name: certbot -q certonly --webroot -w {{ vars.public_dir }} {% for domain in letsencrypt_domains %}-d {{ domain }} {% endfor %} --email={{ pillar['admin_email'] }} --agree-tos --text --non-interactive
+    - name: certbot-auto certonly --webroot --webroot-path {{ vars.public_dir }} {% for domain in letsencrypt_domains %}--domain {{ domain }} {% endfor %} --email={{ pillar['admin_email'] }} --agree-tos --text --quiet
     - unless: test -s /etc/letsencrypt/live/{{ pillar['domain'] }}/fullchain.pem -a -s /etc/letsencrypt/live/{{ pillar['domain'] }}/privkey.pem
     - require:
       - file: install_certbot
@@ -204,7 +204,7 @@ link_key:
 # LetsEncrypt initiated revocation) https://certbot.eff.org/#ubuntutrusty-nginx
 renew_certbot:
   cron.present:
-    - name: certbot -q renew && /etc/init.d/nginx reload
+    - name: certbot-auto renew --quiet --no-self-upgrade && /etc/init.d/nginx reload
     - identifier: renew_certbot
     - minute: random
     - hour: "3,15"
