@@ -3,6 +3,20 @@ Margarita
 
 Changes - always add to the top.
 
+v 2.1.1 on February 9, 2017
+---------------------------
+
+* The Python DeadSnakes PPA is no more. (#151)
+
+  This change stops trying to install the PPA, which was breaking deploys,
+  but doesn't try to find an alternative source for oddball Python versions.
+
+v 2.1.0 on December 15, 2016
+----------------------------
+
+* Fix Vagrant support. (#148)
+
+
 v 2.0.0 on December 15, 2016
 ----------------------------
 
