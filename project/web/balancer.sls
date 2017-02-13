@@ -168,13 +168,12 @@ install_certbot:
   file.managed:
     - name: /usr/local/bin/certbot-auto
     - source: https://dl.eff.org/certbot-auto
-    - source_hash: sha256=fcff7a6a899d1ab576369e5849087b3db7e6cf251e1ea2c963e11b05dfe62e5c
     - mode: 755
 
 # Run certbot to get a key and certificate
 run_certbot:
   cmd.run:
-    - name: certbot-auto certonly --webroot --webroot-path {{ vars.public_dir }} {% for domain in letsencrypt_domains %}--domain {{ domain }} {% endfor %} --email={{ pillar['admin_email'] }} --agree-tos --text --quiet
+    - name: certbot-auto certonly --webroot --webroot-path {{ vars.public_dir }} {% for domain in letsencrypt_domains %}--domain {{ domain }} {% endfor %} --email={{ pillar['admin_email'] }} --agree-tos --text --quiet --no-self-upgrade
     - unless: test -s /etc/letsencrypt/live/{{ pillar['domain'] }}/fullchain.pem -a -s /etc/letsencrypt/live/{{ pillar['domain'] }}/privkey.pem
     - require:
       - file: install_certbot
@@ -204,7 +203,7 @@ link_key:
 # LetsEncrypt initiated revocation) https://certbot.eff.org/#ubuntutrusty-nginx
 renew_certbot:
   cron.present:
-    - name: certbot-auto renew --quiet --no-self-upgrade && /etc/init.d/nginx reload
+    - name: certbot-auto renew --quiet --no-self-upgrade --post-hook "service nginx reload"
     - identifier: renew_certbot
     - minute: random
     - hour: "3,15"
