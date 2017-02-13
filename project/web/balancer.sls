@@ -168,6 +168,7 @@ install_certbot:
   file.managed:
     - name: /usr/local/bin/certbot-auto
     - source: https://dl.eff.org/certbot-auto
+    - skip_verify: True
     - mode: 755
 
 # Run certbot to get a key and certificate
