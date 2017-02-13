@@ -3,6 +3,13 @@ Margarita
 
 Changes - always add to the top.
 
+v 2.2.0 on February 13, 2017
+----------------------------
+
+* Redo LetsEncrypt certificate process using `certbot-auto
+  <https://certbot.eff.org/all-instructions/#ubuntu-other-none-of-the-above>`_ (#149, #152)
+* Make cert renewal more robust by having certbot restart Nginx after renewal.
+
 v 2.1.1 on February 9, 2017
 ---------------------------
 
