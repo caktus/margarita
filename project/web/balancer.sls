@@ -4,7 +4,7 @@
 {% set dhparams_file = vars.build_path(vars.ssl_dir, 'dhparams.pem') %}
 {% set letsencrypt = pillar.get('letsencrypt', False) %}
 {% set letsencrypt_domains = pillar.get('letsencrypt_domains', [pillar['domain']]) %}
-{% set letsencrypt_dir = vars.build_path(vars.root_dir,  'letsencrypt') %}
+{% set old_letsencrypt_dir = vars.build_path(vars.root_dir,  'letsencrypt') %}
 
 {% set ssl_certificate = vars.build_path(vars.ssl_dir, pillar['domain'] + ".crt") %}
 {% set ssl_certificate_key = vars.build_path(vars.ssl_dir, pillar['domain'] + ".key") %}
@@ -164,31 +164,45 @@ nginx_conf:
 {% if letsencrypt %}
 # Now that we have nginx running, we can get a real certificate.
 
-# To install letsencrypt for now, just clone the latest version and invoke the
-# ``letsencrypt-auto`` script from there. There's not a packaged version of
-# letsencrypt for Ubuntu yet, but once there is, we should switch to that.
-really_reset_letsencrypt:
-  cmd.run:
-    - name: cd {{ letsencrypt_dir}} && git reset --hard HEAD
-    - onlyif: test -e {{ letsencrypt_dir }}/.git
+gnupg2:
+  pkg:
+    - installed
 
-install_letsencrypt:
-  git.latest:
-    - name: https://github.com/letsencrypt/letsencrypt/
-    - target: {{ letsencrypt_dir }}
-    - force_reset: True
+/tmp/certbot-auto.asc:
+  file.managed:
+    - name: /tmp/certbot-auto.asc
+    - source: https://dl.eff.org/certbot-auto.asc
+    - skip_verify: True
+
+install_certbot:
+  file.managed:
+    - name: /usr/local/bin/certbot-auto
+    - source: https://dl.eff.org/certbot-auto
+    - skip_verify: True
+    - mode: 755
+
+receive_certbot_gpg_key:
+  cmd.run:
+    - name: gpg2 --recv-key A2CFB51FA275A7286234E7B24D17C995CD9775F2
     - require:
-        - cmd: really_reset_letsencrypt
+      - pkg: gnupg2
 
-# Run letsencrypt to get a key and certificate
-run_letsencrypt:
+verify_certbot_download:
   cmd.run:
-    - name: {{ letsencrypt_dir }}/letsencrypt-auto certonly --webroot --webroot-path {{ vars.public_dir }} {% for domain in letsencrypt_domains %}-d {{ domain }} {% endfor %} --email={{ pillar['admin_email'] }} --agree-tos --text --non-interactive
+    - name: gpg2 --trusted-key 4D17C995CD9775F2 --verify /tmp/certbot-auto.asc /usr/local/bin/certbot-auto
+    - require:
+      - file: /tmp/certbot-auto.asc
+      - file: install_certbot
+      - cmd: receive_certbot_gpg_key
+
+# Run certbot to get a key and certificate
+run_certbot:
+  cmd.run:
+    - name: certbot-auto certonly --webroot --webroot-path {{ vars.public_dir }} {% for domain in letsencrypt_domains %}--domain {{ domain }} {% endfor %} --email={{ pillar['admin_email'] }} --agree-tos --text --quiet --no-self-upgrade
     - unless: test -s /etc/letsencrypt/live/{{ pillar['domain'] }}/fullchain.pem -a -s /etc/letsencrypt/live/{{ pillar['domain'] }}/privkey.pem
-    - env:
-      - XDG_DATA_HOME: /root/letsencrypt
     - require:
-      - git: install_letsencrypt
+      - file: install_certbot
+      - cmd: verify_certbot_download
       - file: nginx_conf
 
 link_cert:
@@ -197,7 +211,7 @@ link_cert:
     - target: /etc/letsencrypt/live/{{ pillar['domain'] }}/fullchain.pem
     - force: true
     - require:
-      - cmd: run_letsencrypt
+      - cmd: run_certbot
 
 link_key:
   file.symlink:
@@ -209,17 +223,26 @@ link_key:
     - watch_in:
       - service: nginx
 
-# Once a week, renew our cert(s) if we need to. This will only renew them if
+# Twice a day, renew our cert(s) if we need to. This will only renew them if
 # they're within 30 days of expiring, so it's not a big burden on the certificate
-# service.  https://letsencrypt.readthedocs.org/en/latest/using.html#renewal
-renew_letsencrypt:
+# service.  (In fact, it's recommended to be this often, in the rare case of a
+# LetsEncrypt initiated revocation) https://certbot.eff.org/#ubuntutrusty-nginx
+renew_certbot:
   cron.present:
-    - name: env XDG_DATA_HOME=/root/letsencrypt {{ letsencrypt_dir }}/letsencrypt-auto renew; /etc/init.d/nginx reload
-    - identifier: renew_letsencrypt
+    - name: certbot-auto renew --quiet --no-self-upgrade --post-hook "service nginx reload"
+    - identifier: renew_certbot
     - minute: random
-    - hour: random
-    - dayweek: 0
+    - hour: "3,15"
     - require:
-       - git: install_letsencrypt
-       - cmd: run_letsencrypt
+       - file: install_certbot
+       - cmd: run_certbot
+
+# Salt state to remove the previous git checkout of letsencrypt
+remove_old_letsencrypt:
+  cron.absent:
+    - identifier: renew_letsencrypt
+  file.directory:
+    - name: {{ old_letsencrypt_dir }}
+    - clean: True
+
 {% endif %}
