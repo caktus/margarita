@@ -164,12 +164,34 @@ nginx_conf:
 {% if letsencrypt %}
 # Now that we have nginx running, we can get a real certificate.
 
+gnupg2:
+  pkg:
+    - installed
+
+/tmp/certbot-auto.asc:
+  file.managed:
+    - name: /tmp/certbot-auto.asc
+    - source: https://dl.eff.org/certbot-auto.asc
+    - skip_verify: True
+
 install_certbot:
   file.managed:
     - name: /usr/local/bin/certbot-auto
     - source: https://dl.eff.org/certbot-auto
     - skip_verify: True
     - mode: 755
+
+receive_certbot_gpg_key:
+  cmd.run:
+    - name: gpg2 --recv-key A2CFB51FA275A7286234E7B24D17C995CD9775F2
+    - require:
+      - pkg: gnupg2
+
+verify_certbot_download:
+  cmd.run:
+    - name: gpg2 --trusted-key 4D17C995CD9775F2 --verify /tmp/certbot-auto.asc /usr/local/bin/certbot-auto
+    - require:
+      - cmd: receive_certbot_gpg_key
 
 # Run certbot to get a key and certificate
 run_certbot:
@@ -178,6 +200,7 @@ run_certbot:
     - unless: test -s /etc/letsencrypt/live/{{ pillar['domain'] }}/fullchain.pem -a -s /etc/letsencrypt/live/{{ pillar['domain'] }}/privkey.pem
     - require:
       - file: install_certbot
+      - gpg: verify_certbot_download
       - file: nginx_conf
 
 link_cert:
