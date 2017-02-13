@@ -191,6 +191,8 @@ verify_certbot_download:
   cmd.run:
     - name: gpg2 --trusted-key 4D17C995CD9775F2 --verify /tmp/certbot-auto.asc /usr/local/bin/certbot-auto
     - require:
+      - file: /tmp/certbot-auto.asc
+      - file: install_certbot
       - cmd: receive_certbot_gpg_key
 
 # Run certbot to get a key and certificate
@@ -200,7 +202,7 @@ run_certbot:
     - unless: test -s /etc/letsencrypt/live/{{ pillar['domain'] }}/fullchain.pem -a -s /etc/letsencrypt/live/{{ pillar['domain'] }}/privkey.pem
     - require:
       - file: install_certbot
-      - gpg: verify_certbot_download
+      - cmd: verify_certbot_download
       - file: nginx_conf
 
 link_cert:
