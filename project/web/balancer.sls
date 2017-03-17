@@ -198,7 +198,7 @@ verify_certbot_download:
 # Run certbot to get a key and certificate
 run_certbot:
   cmd.run:
-    - name: certbot-auto certonly --webroot --webroot-path {{ vars.public_dir }} {% for domain in letsencrypt_domains %}--domain {{ domain }} {% endfor %} --email={{ pillar['admin_email'] }} --agree-tos --text --quiet --no-self-upgrade
+    - name: certbot-auto certonly --webroot --webroot-path {{ vars.public_dir }} {% for domain in letsencrypt_domains %}--domain {{ domain }} {% endfor %} --email={{ pillar['admin_email'] }} --agree-tos --text --quiet --no-self-upgrade --expand
     - unless: test -s /etc/letsencrypt/live/{{ pillar['domain'] }}/fullchain.pem -a -s /etc/letsencrypt/live/{{ pillar['domain'] }}/privkey.pem
     - require:
       - file: install_certbot
