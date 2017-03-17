@@ -37,7 +37,7 @@ ssl_dir:
     - name: {{ vars.ssl_dir }}
     - user: root
     - group: www-data
-    - mode: 644
+    - mode: 755
     - makedirs: True
     - require:
       - file: root_dir
