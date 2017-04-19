@@ -3,6 +3,11 @@ Margarita
 
 Changes - always add to the top.
 
+v 2.2.1 on April 19, 2017
+-------------------------
+
+* BUG FIX: Use explicit paths in the cron command which renews LetsEncrypt certificates. (#155)
+
 v 2.2.0 on February 13, 2017
 ----------------------------
 
