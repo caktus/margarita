@@ -229,7 +229,7 @@ link_key:
 # LetsEncrypt initiated revocation) https://certbot.eff.org/#ubuntutrusty-nginx
 renew_certbot:
   cron.present:
-    - name: /usr/local/bin/certbot-auto renew --quiet --no-self-upgrade --post-hook "/usr/sbin/service nginx reload"
+    - name: /usr/bin/env PATH=/usr/local/bin:$PATH /usr/local/bin/certbot-auto renew --quiet --no-self-upgrade --post-hook "/usr/sbin/service nginx reload"
     - identifier: renew_certbot
     - minute: random
     - hour: "3,15"
