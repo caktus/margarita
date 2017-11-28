@@ -37,7 +37,7 @@ ssl_dir:
     - name: {{ vars.ssl_dir }}
     - user: root
     - group: www-data
-    - mode: 644
+    - mode: 755
     - makedirs: True
     - require:
       - file: root_dir
@@ -47,7 +47,7 @@ ssl_dir:
 # so that we can run nginx while getting the real certificate from letsencrypt.
 ssl_cert:
   cmd.run:
-    - name: cd {{ vars.ssl_dir }} && /var/lib/nginx/generate-cert.sh {{ pillar['domain'] }}
+    - name: cd {{ vars.ssl_dir }} && ([ -e {{ pillar['domain'] }}.crt ] || /var/lib/nginx/generate-cert.sh {{ pillar['domain'] }})
     - cwd: {{ vars.ssl_dir }}
     - user: root
     - unless: test -s {{ ssl_certificate }}
@@ -198,7 +198,7 @@ verify_certbot_download:
 # Run certbot to get a key and certificate
 run_certbot:
   cmd.run:
-    - name: certbot-auto certonly --webroot --webroot-path {{ vars.public_dir }} {% for domain in letsencrypt_domains %}--domain {{ domain }} {% endfor %} --email={{ pillar['admin_email'] }} --agree-tos --text --quiet --no-self-upgrade
+    - name: certbot-auto certonly --webroot --webroot-path {{ vars.public_dir }} --cert-name {{ pillar['domain'] }} {% for domain in letsencrypt_domains %}--domain {{ domain }} {% endfor %} --email={{ pillar['admin_email'] }} --agree-tos --text --quiet --no-self-upgrade --expand
     - unless: test -s /etc/letsencrypt/live/{{ pillar['domain'] }}/fullchain.pem -a -s /etc/letsencrypt/live/{{ pillar['domain'] }}/privkey.pem
     - require:
       - file: install_certbot
