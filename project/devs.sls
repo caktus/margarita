@@ -2,7 +2,7 @@ include:
   - users.groups
 
 {% if 'users' in pillar and pillar['users'] %}
-{% for user, args in pillar['users'].iteritems() %}
+{% for user, args in pillar['users'].items() %}
 dev_{{ user }}:
   user.present:
     - name: {{ user }}
