@@ -1,5 +1,13 @@
 {% set python_version = pillar.get('python_version', '2.7') ~ '' %}
 
+# https://launchpad.net/~deadsnakes/+archive/ubuntu/ppa
+deadsnakes:
+  pkgrepo.managed:
+    - humanname: Deadsnakes PPA
+    - ppa: deadsnakes/ppa
+    - require_in:
+      - pkg: python-pkgs
+
 python-pkgs:
   pkg.installed:
     - pkgs:

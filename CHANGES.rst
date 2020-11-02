@@ -3,6 +3,17 @@ Margarita
 
 Changes - always add to the top.
 
+v 2.2.2 on November 2, 2020
+---------------------------
+
+* The Python DeadSnakes PPA is reborn.
+
+  This installs it so we can use whatever Python version we need on whatever
+  Ubuntu LTS release we happen to be on.
+
+  (We had removed it in v 2.1.1. This just restores the 3.x part of what we
+  had before and updates the PPA identifier, since the PPA has a new name.)
+
 v 2.2.1 on April 19, 2017
 -------------------------
 
